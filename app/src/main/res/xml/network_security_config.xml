@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+
+    <!-- (Opcional) Desliga cleartext globalmente -->
+    <base-config cleartextTrafficPermitted="false" />
+
+    <!-- Permite cleartext apenas para 10.0.2.2 e seus subdomínios -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- O includeSubdomains vai aqui -->
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
+
+</network-security-config>

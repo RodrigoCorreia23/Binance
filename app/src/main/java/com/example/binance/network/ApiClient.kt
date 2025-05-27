@@ -1,33 +1,34 @@
 package com.example.binance.network
 
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    // 1) importa isto no topo:
-    // import okhttp3.OkHttpClient
-    // import okhttp3.logging.HttpLoggingInterceptor
 
-    // 2) substitui a construção do client por isto:
-    private val logging = HttpLoggingInterceptor().apply {
+    private const val BASE_URL = "http://10.0.2.2:8080/"
+
+    // 1) Interceptor para log básico de requests/responses
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BASIC
     }
 
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
+    // 2) Cliente HTTP com o interceptor adicionado
+    private val httpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
         .build()
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8080/")
-        .client(client)                              // usa o client com logging
+    // 3) Instância Retrofit configurada
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)                               // tem de terminar em “/”
+        .client(httpClient)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // 4) Serviço Retrofit único
     val service: BinanceService =
         retrofit.create(BinanceService::class.java)
 }

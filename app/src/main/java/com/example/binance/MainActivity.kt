@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val resp = RetrofitClient.apiService.ping()
                 withContext(Dispatchers.Main) {
-                    tvStatus.text = "Status do servidor: ${resp.status}"
+                    tvStatus.text = "Status do servidor: ${resp.message}"
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {

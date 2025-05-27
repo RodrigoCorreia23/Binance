@@ -3,21 +3,32 @@ package com.example.binance.network
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+
+    private const val BASE_URL = "http://10.0.2.2:8080/"
+
+    // 1) interceptor para logging
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BASIC
     }
 
+    // 2) http client
     private val httpClient = OkHttpClient.Builder()
-        .addInterceptor(logging)
+        .addInterceptor(loggingInterceptor)
         .build()
 
-    val apiService: ApiService = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8080/") // emulador Android usa este IP para localhost
+    // 3) instância Retrofit
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)  // atenção ao “/” no final
         .client(httpClient)
+        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(ApiService::class.java)
+
+    // 4) expose exatamente esta propriedade:
+    val apiService: BinanceService =
+        retrofit.create(BinanceService::class.java)
 }

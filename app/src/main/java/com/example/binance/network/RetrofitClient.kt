@@ -34,4 +34,6 @@ object RetrofitClient {
 
     val binanceService: BinanceService =
         retrofit.create(BinanceService::class.java)
+
+    val service: BinanceService = retrofit.create(BinanceService::class.java)
 }

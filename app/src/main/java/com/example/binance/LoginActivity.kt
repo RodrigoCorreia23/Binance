@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.LoginRequest
 import com.example.binance.network.RetrofitClient
+import com.example.binance.network.HasCredResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             val email    = etEmail.text.toString().trim()
             val password = etPassword.text.toString()
 
-            // 1) validação de frontend
+            // 1) validação local
             when {
                 email.isEmpty() || password.isEmpty() -> {
                     tvStatus.text = "Preencha email e senha."
@@ -61,52 +62,65 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            // 2) chamada à API
+            // 2) chamada de login
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val resp = RetrofitClient.apiService
+                    val resp = RetrofitClient.service
                         .login(LoginRequest(email, password))
 
                     withContext(Dispatchers.Main) {
-                        // limpa erros antigos
+                        // limpa erros anteriores
                         etEmail.error    = null
                         etPassword.error = null
                         tvStatus.text    = ""
 
                         when {
                             resp.isSuccessful -> {
-                                // sucesso → vai para ApiCredentialsActivity
+                                // login OK: pega body
                                 val body = resp.body()!!
-                                Toast.makeText(
-                                    this@LoginActivity,
-                                    "Login bem-sucedido!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                startActivity(
-                                    Intent(
-                                        this@LoginActivity,
-                                        ApiCredentialsActivity::class.java
-                                    ).apply {
-                                        putExtra("USER_ID", body.userId)
-                                        putExtra("USERNAME", body.username)
+
+                                // 3) agora verifica se já tem API credentials
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    val check = RetrofitClient.service
+                                        .hasCredentials(body.userId)
+
+                                    withContext(Dispatchers.Main) {
+                                        if (check.isSuccessful) {
+                                            val hasCreds = check.body()?.hasCredentials == true
+                                            val nextCls = if (hasCreds)
+                                                HomeActivity::class.java
+                                            else
+                                                ApiCredentialsActivity::class.java
+
+                                            startActivity(
+                                                Intent(
+                                                    this@LoginActivity,
+                                                    nextCls
+                                                ).apply {
+                                                    putExtra("USER_ID", body.userId)
+                                                    putExtra("USERNAME", body.username)
+                                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                                                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                }
+                                            )
+                                        } else {
+                                            tvStatus.text =
+                                                "Erro ao verificar credenciais: ${check.code()}"
+                                        }
                                     }
-                                )
-                                finish()
+                                }
                             }
                             resp.code() == 404 -> {
-                                // email não cadastrado
                                 val msg = JSONObject(resp.errorBody()?.string().orEmpty())
                                     .optString("email", "Email não cadastrado")
                                 etEmail.error = msg
                             }
                             resp.code() == 401 -> {
-                                // senha incorreta
                                 val msg = JSONObject(resp.errorBody()?.string().orEmpty())
                                     .optString("password", "Senha incorreta")
                                 etPassword.error = msg
                             }
                             else -> {
-                                // outros erros
                                 val err = resp.errorBody()?.string().orEmpty()
                                 val msg = runCatching {
                                     JSONObject(err).optString("message", err)
@@ -124,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvForgot.setOnClickListener {
-            // TODO: recuperação de senha
+            // TODO: recuperar senha
         }
     }
 

@@ -19,7 +19,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Espaço -->
         <View
             android:layout_width="match_parent"
             android:layout_height="24dp" />
@@ -34,7 +33,6 @@
             android:background="@drawable/et_background"
             android:padding="12dp" />
 
-        <!-- Espaço -->
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -68,7 +66,6 @@
                 android:focusable="true" />
         </RelativeLayout>
 
-        <!-- Espaço -->
         <View
             android:layout_width="match_parent"
             android:layout_height="24dp" />
@@ -82,7 +79,20 @@
             android:textColor="@android:color/white"
             android:backgroundTint="@android:color/holo_blue_dark" />
 
-        <!-- Espaço -->
+        <!-- Espaço antes do status de erro -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <!-- TextView para mostrar erros (credenciais inválidas, rede, etc) -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -98,5 +108,4 @@
             android:focusable="true" />
 
     </LinearLayout>
-
 </ScrollView>

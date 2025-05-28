@@ -75,7 +75,8 @@ class LoginActivity : AppCompatActivity() {
 
                         when {
                             resp.isSuccessful -> {
-                                // sucesso → vai para HomeActivity
+                                // sucesso → vai para ApiCredentialsActivity
+                                val body = resp.body()!!
                                 Toast.makeText(
                                     this@LoginActivity,
                                     "Login bem-sucedido!",
@@ -84,8 +85,11 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(
                                     Intent(
                                         this@LoginActivity,
-                                        HomeActivity::class.java
-                                    )
+                                        ApiCredentialsActivity::class.java
+                                    ).apply {
+                                        putExtra("USER_ID", body.userId)
+                                        putExtra("USERNAME", body.username)
+                                    }
                                 )
                                 finish()
                             }

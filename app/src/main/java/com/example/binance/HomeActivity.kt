@@ -1,5 +1,6 @@
 package com.example.binance
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
@@ -9,12 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.charts.CandleStickChart
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.CandleData
+import com.github.mikephil.charting.data.CandleDataSet
+import com.github.mikephil.charting.data.CandleEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
 import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,6 +40,7 @@ interface BinanceApiService {
         @Query("limit") limit: Int = 100
     ): List<List<Any>>
 }
+
 data class SymbolPrice(val symbol: String, val price: String)
 
 class HomeActivity : AppCompatActivity() {
@@ -106,8 +113,9 @@ class HomeActivity : AppCompatActivity() {
             switchSymbol("BTCUSDT")
         }
 
+        // --- aqui: redireciona para AddFundsActivity ---
         btnAddFunds.setOnClickListener {
-            // TODO: adicionar fundos
+            startActivity(Intent(this, AddFundsActivity::class.java))
         }
     }
 
@@ -136,11 +144,7 @@ class HomeActivity : AppCompatActivity() {
         withContext(Dispatchers.IO) {
             val klines = service.getKlines(symbol)
             klines.forEachIndexed { i, k ->
-                val t = when (val raw = k[0]) {
-                    is Number -> raw.toLong()
-                    is String -> raw.toLong()
-                    else      -> 0L
-                }
+                val t = (k[0] as Number).toLong()
                 val open  = (k[1] as String).toFloat()
                 val high  = (k[2] as String).toFloat()
                 val low   = (k[3] as String).toFloat()
@@ -152,7 +156,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         runOnUiThread {
-            // exibe último preço histórico
             if (entries.isNotEmpty()) {
                 val last = entries.last().close
                 tvCryptoBalance.text = String.format(Locale.getDefault(), "%,.6f", last)
@@ -173,7 +176,7 @@ class HomeActivity : AppCompatActivity() {
         chart.apply {
             data = CandleData(ds)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.valueFormatter = IndexAxisValueFormatter(timeLabels)
+            (xAxis).valueFormatter = IndexAxisValueFormatter(timeLabels)
             xAxis.granularity = 1f
             animateX(500)
         }
@@ -211,7 +214,6 @@ class HomeActivity : AppCompatActivity() {
                         chart.setVisibleXRangeMaximum(50f)
                         chart.moveViewToX(entries.size.toFloat())
                         chart.invalidate()
-                        // atualiza preço em real-time
                         tvCryptoBalance.text = String.format(Locale.getDefault(), "%,.6f", close)
                     }
                 } catch (e: Exception) {

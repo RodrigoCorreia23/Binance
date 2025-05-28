@@ -16,4 +16,9 @@ interface BinanceService {
 
     @POST("api/auth/login")
     suspend fun login(@Body req: LoginRequest): Response<LoginResponse>
+
+    @POST("/api/credentials")
+    suspend fun saveCredentials(
+        @Body req: ApiCredentialsRequest
+    ): Response<Void>
 }

@@ -1,12 +1,21 @@
 package com.example.binance
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.binance.network.ApiCredentialsRequest
+import com.example.binance.network.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ApiCredentialsActivity : AppCompatActivity() {
 
@@ -14,17 +23,29 @@ class ApiCredentialsActivity : AppCompatActivity() {
     private lateinit var etSecretKey: EditText
     private lateinit var tvShowSecret: TextView
     private lateinit var btnSave: Button
+    private lateinit var tvStatus: TextView
 
     private var isSecretVisible = false
+    private lateinit var userId: String
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api_credentials)
 
-        etApiKey = findViewById(R.id.etApiKey)
-        etSecretKey = findViewById(R.id.etSecretKey)
+        // 1) recupera userId do Intent
+        userId = intent.getStringExtra("USER_ID")
+            ?: run {
+                Toast.makeText(this, "Usuário inválido", Toast.LENGTH_LONG).show()
+                finish()
+                return
+            }
+
+        etApiKey     = findViewById(R.id.etApiKey)
+        etSecretKey  = findViewById(R.id.etSecretKey)
         tvShowSecret = findViewById(R.id.tvShowSecret)
-        btnSave = findViewById(R.id.btnSave)
+        btnSave      = findViewById(R.id.btnSave)
+        tvStatus     = findViewById(R.id.tvStatus)
 
         tvShowSecret.setOnClickListener { toggleSecretVisibility() }
         btnSave.setOnClickListener { saveCredentials() }
@@ -32,18 +53,64 @@ class ApiCredentialsActivity : AppCompatActivity() {
 
     private fun toggleSecretVisibility() {
         isSecretVisible = !isSecretVisible
-        etSecretKey.transformationMethod = if (isSecretVisible) {
-            HideReturnsTransformationMethod.getInstance()
-        } else {
-            PasswordTransformationMethod.getInstance()
-        }
+        etSecretKey.transformationMethod =
+            if (isSecretVisible)
+                HideReturnsTransformationMethod.getInstance()
+            else
+                PasswordTransformationMethod.getInstance()
         tvShowSecret.text = if (isSecretVisible) "Hide" else "Show"
         etSecretKey.setSelection(etSecretKey.text.length)
     }
 
     private fun saveCredentials() {
-        val apiKey = etApiKey.text.toString().trim()
+        val apiKey    = etApiKey.text.toString().trim()
         val secretKey = etSecretKey.text.toString().trim()
-        // TODO: validar campos e armazenar de forma segura (EncryptedSharedPreferences, Keystore...)
+
+        // 2) validação simples
+        when {
+            apiKey.isEmpty() -> {
+                etApiKey.error = "API Key é obrigatória"
+                return
+            }
+            secretKey.isEmpty() -> {
+                etSecretKey.error = "Secret Key é obrigatória"
+                return
+            }
+        }
+
+        tvStatus.text = ""
+        etApiKey.error = null
+        etSecretKey.error = null
+
+        // 3) envia para o servidor
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val resp = RetrofitClient.binanceService
+                    .saveCredentials(ApiCredentialsRequest(userId, apiKey, secretKey))
+
+                withContext(Dispatchers.Main) {
+                    if (resp.isSuccessful) {
+                        Toast.makeText(
+                            this@ApiCredentialsActivity,
+                            "Credenciais salvas com sucesso!",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        // 👉 abre HomeActivity e limpa toda a pilha para não voltar ao Signup/Login
+                        val intent = Intent(this@ApiCredentialsActivity, HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        // não precisa de finish() aqui, pois o CLEAR_TASK já remove as anteriores
+                    } else {
+                        val err = resp.errorBody()?.string().orEmpty()
+                        tvStatus.text = "Erro ${resp.code()}: $err"
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    tvStatus.text = "Erro de rede: ${e.localizedMessage}"
+                }
+            }
+        }
     }
 }

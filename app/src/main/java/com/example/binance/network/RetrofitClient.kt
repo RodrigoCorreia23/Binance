@@ -31,4 +31,7 @@ object RetrofitClient {
     // 4) expose exatamente esta propriedade:
     val apiService: BinanceService =
         retrofit.create(BinanceService::class.java)
+
+    val binanceService: BinanceService =
+        retrofit.create(BinanceService::class.java)
 }

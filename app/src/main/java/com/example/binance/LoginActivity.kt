@@ -7,9 +7,9 @@ import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.LoginRequest
-import com.example.binance.network.LoginResponse
 import com.example.binance.network.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,8 +37,7 @@ class LoginActivity : AppCompatActivity() {
         tvShow     = findViewById(R.id.tvShow)
         btnLogIn   = findViewById(R.id.btnLogIn)
         tvForgot   = findViewById(R.id.tvForgot)
-        tvStatus = findViewById(R.id.tvStatus)
-
+        tvStatus   = findViewById(R.id.tvStatus)
 
         tvShow.setOnClickListener { togglePasswordVisibility() }
 
@@ -46,10 +45,10 @@ class LoginActivity : AppCompatActivity() {
             val email    = etEmail.text.toString().trim()
             val password = etPassword.text.toString()
 
-            // validação
+            // 1) validação de frontend
             when {
                 email.isEmpty() || password.isEmpty() -> {
-                    tvStatus.text = "Preenche email e password."
+                    tvStatus.text = "Preencha email e senha."
                     return@setOnClickListener
                 }
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
@@ -57,35 +56,53 @@ class LoginActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
                 password.length < 6 -> {
-                    tvStatus.text = "Password muito curta."
+                    tvStatus.text = "Senha muito curta."
                     return@setOnClickListener
                 }
             }
 
-            // chamada de login
+            // 2) chamada à API
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val resp = RetrofitClient.apiService
                         .login(LoginRequest(email, password))
 
                     withContext(Dispatchers.Main) {
+                        // limpa erros antigos
+                        etEmail.error    = null
+                        etPassword.error = null
+                        tvStatus.text    = ""
+
                         when {
                             resp.isSuccessful -> {
-                                val body = resp.body()!!
-                                // navega para ApiCredentialsActivity
-                                startActivity(Intent(
+                                // sucesso → vai para HomeActivity
+                                Toast.makeText(
                                     this@LoginActivity,
-                                    ApiCredentialsActivity::class.java
-                                ).apply {
-                                    putExtra("USER_ID",   body.userId)
-                                    putExtra("USERNAME",  body.username)
-                                })
+                                    "Login bem-sucedido!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(
+                                    Intent(
+                                        this@LoginActivity,
+                                        HomeActivity::class.java
+                                    )
+                                )
                                 finish()
                             }
+                            resp.code() == 404 -> {
+                                // email não cadastrado
+                                val msg = JSONObject(resp.errorBody()?.string().orEmpty())
+                                    .optString("email", "Email não cadastrado")
+                                etEmail.error = msg
+                            }
                             resp.code() == 401 -> {
-                                tvStatus.text = "Credenciais inválidas."
+                                // senha incorreta
+                                val msg = JSONObject(resp.errorBody()?.string().orEmpty())
+                                    .optString("password", "Senha incorreta")
+                                etPassword.error = msg
                             }
                             else -> {
+                                // outros erros
                                 val err = resp.errorBody()?.string().orEmpty()
                                 val msg = runCatching {
                                     JSONObject(err).optString("message", err)
@@ -103,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvForgot.setOnClickListener {
-            // TODO: recuperação de password
+            // TODO: recuperação de senha
         }
     }
 

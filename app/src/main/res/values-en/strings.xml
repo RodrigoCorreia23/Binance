@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Binance</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="card">Card</string>
+    <string name="bank_account">Bank Account</string>
+    <string name="paypal">PayPal</string>
+    <string name="total">Total</string>
+    <string name="proceed_payment">Proceed to Payment</string>
+
+    <string name="api_title">Enter your Binance API credentials Securely</string>
+    <string name="api_key">API Key</string>
+    <string name="secret_key">Secret Key</string>
+    <string name="show">Show</string>
+    <string name="api_warning">Never share your Secret Key with anyone. We do not store these credentials on your device.</string>
+    <string name="save_continue">Save and Continue</string>
+
+    <string name="search_symbol">Search symbol</string>
+    <string name="add_funds">Add Funds</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Log In</string>
+    <string name="forgot_password">Forgot your password?</string>
+
+    <string name="signup_title">Sign Up</string>
+    <string name="login_text">Login</string>
+    <string name="name">Name</string>
+    <string name="newsletter">I would like to receive your newsletter and other promotional information.</string>
+    <string name="signup">Sign Up</string>
+    <string name="status_loading">Status: loading...</string>
+
+    <string name="home">Home</string>
+    <string name="refresh">Refresh</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+</resources>

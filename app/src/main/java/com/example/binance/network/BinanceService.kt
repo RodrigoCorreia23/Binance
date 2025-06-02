@@ -1,5 +1,6 @@
 package com.example.binance.network
 
+import com.example.binance.dto.BalanceResponse
 import retrofit2.http.GET
 import retrofit2.Response
 import retrofit2.http.Body
@@ -31,4 +32,9 @@ interface BinanceService {
     suspend fun saveCredentials(
         @Body req: ApiCredentialsRequest
     ): Response<Void>
+
+    @GET("credentials/{userId}/balance")
+    suspend fun getBalance(
+        @Path("userId") userId: String
+    ): BalanceResponse
 }

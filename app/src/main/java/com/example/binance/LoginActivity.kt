@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -79,6 +80,13 @@ class LoginActivity : AppCompatActivity() {
                                 // login OK: pega body
                                 val body = resp.body()!!
 
+                                // Armazena userId e token no SharedPreferences
+                                val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+                                prefs.edit()
+                                    .putString("USER_ID", body.userId)
+                                    .putString("AUTH_TOKEN", "Bearer ${body.token}")
+                                    .apply()
+
                                 // 3) agora verifica se já tem API credentials
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val check = RetrofitClient.service
@@ -139,6 +147,7 @@ class LoginActivity : AppCompatActivity() {
 
         tvForgot.setOnClickListener {
             // TODO: recuperar senha
+            Toast.makeText(this, "Recuperar senha ainda não implementado", Toast.LENGTH_SHORT).show()
         }
     }
 

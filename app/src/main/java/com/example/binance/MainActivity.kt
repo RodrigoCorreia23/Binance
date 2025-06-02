@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.RetrofitClient
 import com.example.binance.network.SignUpRequest
+import com.example.binance.SettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +38,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val btnLang = findViewById<Button>(R.id.btnChangeLanguage)
+        btnLang.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
 
         etName       = findViewById(R.id.etName)
         etEmail      = findViewById(R.id.etEmail)

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.LoginRequest
 import com.example.binance.network.RetrofitClient
 import com.example.binance.network.HasCredResponse
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +34,16 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // Configurar Toolbar
+        val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            title = "Log In"
+        }
 
         etEmail    = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
@@ -149,6 +160,11 @@ class LoginActivity : AppCompatActivity() {
             // TODO: recuperar senha
             Toast.makeText(this, "Recuperar senha ainda não implementado", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun togglePasswordVisibility() {

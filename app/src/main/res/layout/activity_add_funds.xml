@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Método de Pagamento"
+        android:text="@string/payment_method"
         android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -31,23 +30,22 @@
                 android:id="@+id/rbCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cartão"/>
+                android:text="@string/card"/>
 
             <RadioButton
                 android:id="@+id/rbBank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Conta bancária"/>
+                android:text="@string/bank_account"/>
 
             <RadioButton
                 android:id="@+id/rbPaypal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PayPal"/>
+                android:text="@string/paypal"/>
         </RadioGroup>
     </androidx.cardview.widget.CardView>
 
-    <!-- EditText para o total, inicializado em 0.00 -->
     <EditText
         android:id="@+id/etTotal"
         android:layout_marginTop="32dp"
@@ -55,12 +53,12 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:text="0.00"
-        android:hint="Total"
+        android:hint="@string/total"
         android:textSize="16sp"/>
 
     <Button
         android:id="@+id/btnProceed"
-        android:text="Prosseguir para pagamento"
+        android:text="@string/proceed_payment"
         android:layout_marginTop="32dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"

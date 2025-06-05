@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
 }
 
 android {
@@ -84,5 +85,7 @@ dependencies {
 
     implementation ("com.stripe:stripe-android:20.19.0")
     implementation ("androidx.cardview:cardview:1.0.0")
+
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 
 }

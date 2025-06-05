@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Define o tamanho mínimo do shape (normalmente seu ImageView já vai ter 64dp x 64dp,
+         mas é bom garantir um “backup” caso use em diferentes tamanhos) -->
+    <size
+        android:width="64dp"
+        android:height="64dp" />
+
+    <!-- Cor de fundo do círculo -->
+    <solid android:color="#EEEEEE" />
+</shape>

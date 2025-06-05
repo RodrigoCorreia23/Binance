@@ -96,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
                                 prefs.edit()
                                     .putString("USER_ID", body.userId)
                                     .putString("AUTH_TOKEN", "Bearer ${body.token}")
+                                    .putString("USERNAME",  body.username)
+                                    .putString("EMAIL", body.email)
                                     .apply()
 
                                 // 3) agora verifica se já tem API credentials

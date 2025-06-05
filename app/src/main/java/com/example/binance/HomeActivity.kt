@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.CandleData
 import com.github.mikephil.charting.data.CandleDataSet
 import com.github.mikephil.charting.data.CandleEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvSymbolLabel: TextView
     private lateinit var btnAddFunds: Button
     private lateinit var chart: CandleStickChart
+    private lateinit var bottomNav: BottomNavigationView
 
     // serviços Retrofit
     private lateinit var publicService: PublicBinanceApiService
@@ -62,6 +64,7 @@ class HomeActivity : AppCompatActivity() {
         tvSymbolLabel   = findViewById(R.id.tvSymbolLabel)
         btnAddFunds     = findViewById(R.id.btnAddFunds)
         chart           = findViewById(R.id.chart)
+        bottomNav       = findViewById(R.id.bottom_nav)
 
         // valores iniciais
         tvUsdBalance.text    = "$0.00"
@@ -107,11 +110,15 @@ class HomeActivity : AppCompatActivity() {
 
             acSymbol.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    val sym = acSymbol.text.toString().uppercase(Locale.ROOT)
+                    val sym = acSymbol.text.toString().uppercase(Locale.getDefault())
                     if (symbols.contains(sym)) {
                         switchSymbol(sym)
                     } else {
-                        Toast.makeText(this@HomeActivity, "Símbolo inválido", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@HomeActivity,
+                            "Símbolo inválido",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     true
                 } else false
@@ -124,6 +131,38 @@ class HomeActivity : AppCompatActivity() {
         btnAddFunds.setOnClickListener {
             startActivity(Intent(this, AddFundsActivity::class.java))
         }
+
+        // configura clique dos itens do BottomNavigationView
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    // já está na Home, nada a fazer
+                    true
+                }
+                R.id.nav_refresh -> {
+                    // recarregar dados para o símbolo atual
+                    val currentSym = tvSymbolLabel.text.toString()
+                    if (currentSym.isNotBlank()) {
+                        switchSymbol(currentSym)
+                    }
+                    true
+                }
+                R.id.nav_profile -> {
+                    // abre ProfileActivity
+                    startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                    true
+                }
+                R.id.nav_settings -> {
+                    // caso tenha SettingsActivity, abra aqui. Senão, apenas um Toast.
+                    Toast.makeText(this, "Settings selecionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        // item “Home” selecionado por padrão
+        bottomNav.selectedItemId = R.id.nav_home
     }
 
     private suspend fun fetchBalance(userId: String) {

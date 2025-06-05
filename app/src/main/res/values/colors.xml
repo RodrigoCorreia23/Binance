@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Outras cores que você já tenha -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grayDark">#666666</color>
+
+    <!-- Aqui definimos o colorPrimary que o seu layout está tentando usar -->
+    <color name="colorPrimary">#1E2ED3</color>
+    <!-- (troque "#1E2ED3" pelo hex ou cor Material que você quiser) -->
 </resources>

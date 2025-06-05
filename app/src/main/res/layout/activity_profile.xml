@@ -15,7 +15,7 @@
         android:id="@+id/tvTitleProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="My profile"
+        android:text="@string/title_profile"
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -28,7 +28,7 @@
         android:id="@+id/tvLabelPersonalDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Personal details"
+        android:text="@string/personal_details"
         android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tvTitleProfile"
@@ -39,7 +39,7 @@
         android:id="@+id/tvChangePersonalDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="change"
+        android:text="@string/edit_profile"
         android:textSize="14sp"
         android:textColor="@color/colorPrimary"
         android:clickable="true"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- 3.1. Avatar (Imagem) - clicável para o usuário escolher -->
+            <!-- 3.1. Avatar (Imagem) - clicável para o User escolher -->
             <ImageView
                 android:id="@+id/ivAvatar"
                 android:layout_width="64dp"
@@ -74,12 +74,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="Avatar do usuário"
+                android:contentDescription="Avatar "
                 android:background="@drawable/circle_background"
                 android:clickable="true"
                 android:focusable="true"/>
 
-            <!-- 3.2. Nome do usuário -->
+            <!-- 3.2. Nome do user-->
             <TextView
                 android:id="@+id/tvUserName"
                 android:layout_width="0dp"
@@ -93,7 +93,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="12dp"/>
 
-            <!-- 3.3. E-mail do usuário -->
+            <!-- 3.3. E-mail do user -->
             <TextView
                 android:id="@+id/tvUserEmail"
                 android:layout_width="0dp"
@@ -103,32 +103,6 @@
                 android:textColor="@color/grayDark"
                 app:layout_constraintStart_toStartOf="@id/tvUserName"
                 app:layout_constraintTop_toBottomOf="@id/tvUserName"
-                app:layout_constraintEnd_toEndOf="@id/tvUserName"
-                android:layout_marginTop="4dp"/>
-
-            <!-- 3.4. Telefone do usuário -->
-            <TextView
-                android:id="@+id/tvUserPhone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="+55 (11) 99999-9999"
-                android:textSize="14sp"
-                android:textColor="@color/grayDark"
-                app:layout_constraintStart_toStartOf="@id/tvUserName"
-                app:layout_constraintTop_toBottomOf="@id/tvUserEmail"
-                app:layout_constraintEnd_toEndOf="@id/tvUserName"
-                android:layout_marginTop="4dp"/>
-
-            <!-- 3.5. Endereço do usuário -->
-            <TextView
-                android:id="@+id/tvUserAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Rua Exemplo, 123, Bairro, Cidade, Estado"
-                android:textSize="14sp"
-                android:textColor="@color/grayDark"
-                app:layout_constraintStart_toStartOf="@id/tvUserName"
-                app:layout_constraintTop_toBottomOf="@id/tvUserPhone"
                 app:layout_constraintEnd_toEndOf="@id/tvUserName"
                 android:layout_marginTop="4dp"/>
 
@@ -161,7 +135,7 @@
                 android:id="@+id/tvFaq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Faq"
+                android:text="@string/faq"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
@@ -204,7 +178,7 @@
                 android:id="@+id/tvHelp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Help"
+                android:text="@string/help"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
@@ -247,7 +221,7 @@
                 android:id="@+id/tvLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Language"
+                android:text="@string/language"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
@@ -264,19 +238,5 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- 5. Botão “Update” -->
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="36dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Update"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardLanguage"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

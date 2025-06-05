@@ -10,7 +10,7 @@
         android:id="@+id/tvLabelUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:text="@string/username"
         android:textSize="14sp"
         android:textColor="@color/black"
         android:layout_marginBottom="4dp" />
@@ -20,13 +20,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Digite o novo username" />
+        android:hint="@string/new_username" />
 
     <TextView
         android:id="@+id/tvLabelEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:text="@string/email"
         android:textSize="14sp"
         android:textColor="@color/black"
         android:layout_marginTop="16dp"
@@ -37,5 +37,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="Digite o novo e-mail" />
+        android:hint="@string/new_email" />
 </LinearLayout>

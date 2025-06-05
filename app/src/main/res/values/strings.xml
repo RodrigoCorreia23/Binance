@@ -5,7 +5,7 @@
     <string name="bank_account">Conta bancária</string>
     <string name="paypal">PayPal</string>
     <string name="total">Total</string>
-    <string name="proceed_payment">Prosseguir para pagamento</string>
+    <string name="proceed_payment">Pagar</string>
 
     <string name="api_title">Enter your Binance API credentials Securely</string>
     <string name="api_key">API Key</string>

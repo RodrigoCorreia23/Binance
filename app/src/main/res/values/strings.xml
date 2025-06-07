@@ -5,7 +5,7 @@
     <string name="bank_account">Conta bancária</string>
     <string name="paypal">PayPal</string>
     <string name="total">Total</string>
-    <string name="proceed_payment">Prosseguir para pagamento</string>
+    <string name="proceed_payment">Pagar</string>
 
     <string name="api_title">Enter your Binance API credentials Securely</string>
     <string name="api_key">API Key</string>
@@ -33,4 +33,23 @@
     <string name="refresh">Atualizar</string>
     <string name="profile">Perfil</string>
     <string name="settings">Definições</string>
+
+    <!--Profile Page-->
+    <string name="title_profile">O Meu Perfil</string>
+    <string name="personal_details">Detalhes Pessoais</string>
+    <string name="edit_profile">Editar</string>
+    <string name="faq">FAQ</string>
+    <string name="help">Ajuda</string>
+    <string name="language">Idioma</string>
+    <string name="loading_profile">A Carregar ...</string>
+
+    <!--Edit Profile Dialog-->
+    <string name="username">Username</string>
+    <string name="new_username">Novo Username</string>
+    <string name="new_email">Novo E-mail</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancel</string>
+    <string name="profile_updated_successfully">Alteração concluida com sucesso</string>
+
+
 </resources>

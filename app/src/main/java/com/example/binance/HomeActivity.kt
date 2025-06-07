@@ -8,7 +8,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.binance.dto.BalanceResponse
 import com.example.binance.network.PublicBinanceApiService
 import com.example.binance.network.BinanceService
 import com.example.binance.network.RetrofitClient
@@ -27,7 +26,6 @@ import okhttp3.Request
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import org.json.JSONObject
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
@@ -67,8 +65,13 @@ class HomeActivity : AppCompatActivity() {
         chart           = findViewById(R.id.chart)
         bottomNav       = findViewById(R.id.bottom_nav)
 
-        // valores iniciais
-        tvUsdBalance.text    = "$0.00"
+        // Ler Saldo do SharedPreferences
+        val walletPrefs = getSharedPreferences("wallet", MODE_PRIVATE)
+        val balance = walletPrefs.getFloat("balance", 0f)
+
+        // Exibir o saldo em USD
+        tvUsdBalance.text = String.format(Locale.getDefault(), "$%,.2f", balance)
+
         tvCryptoBalance.text = "0.000000"
         tvSymbolLabel.text   = "BTCUSDT"
 
@@ -86,12 +89,6 @@ class HomeActivity : AppCompatActivity() {
         val prefs  = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", "") ?: ""
         Log.d("HomeActivity", "Loaded from prefs → userId='$userId'")
-
-        if (userId.isNotBlank()) {
-            lifecycleScope.launch { fetchBalance(userId) }
-        } else {
-            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_LONG).show()
-        }
 
         // popula symbols e inicia gráfico
         lifecycleScope.launch {
@@ -166,30 +163,10 @@ class HomeActivity : AppCompatActivity() {
         bottomNav.selectedItemId = R.id.nav_home
     }
 
-    private suspend fun fetchBalance(userId: String) {
-        try {
-            val resp: BalanceResponse = withContext(Dispatchers.IO) {
-                backendService.getBalance(userId)
-            }
-            Log.d("HomeActivity", "BalanceResponse.free='${resp.free}'")
-
-            val freeValue = resp.free.toDoubleOrNull() ?: 0.0
-            val formatted = String.format(Locale.getDefault(), "$%,.6f", freeValue)
-            runOnUiThread {
-                tvUsdBalance.text = formatted
-            }
-        } catch (e: HttpException) {
-            val err = e.response()?.errorBody()?.string()
-            Log.e("HomeActivity", "HTTP ${e.code()} - $err")
-            runOnUiThread {
-                Toast.makeText(this, "Erro HTTP ao carregar saldo", Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: Exception) {
-            Log.e("HomeActivity", "Erro ao buscar saldo", e)
-            runOnUiThread {
-                Toast.makeText(this, "Não foi possível carregar o saldo", Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun updateLocalBalance() {
+        val walletPrefs = getSharedPreferences("wallet", MODE_PRIVATE)
+        val fakeBalance = walletPrefs.getFloat("balance", 0f)
+        tvUsdBalance.text = String.format("€%.2f", fakeBalance)
     }
 
     private fun switchSymbol(symbol: String) {
@@ -281,6 +258,11 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateLocalBalance()
     }
 
     override fun onDestroy() {

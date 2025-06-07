@@ -27,9 +27,6 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var ivAvatar: ImageView
     private lateinit var tvUserName: TextView
     private lateinit var tvUserEmail: TextView
-    private lateinit var tvUserPhone: TextView
-    private lateinit var tvUserAddress: TextView
-    private lateinit var btnUpdate: Button
 
     // Label e botão “change” de Personal Details
     private lateinit var tvLabelPersonalDetails: TextView
@@ -58,9 +55,6 @@ class ProfileActivity : AppCompatActivity() {
         ivAvatar                 = findViewById(R.id.ivAvatar)
         tvUserName               = findViewById(R.id.tvUserName)
         tvUserEmail              = findViewById(R.id.tvUserEmail)
-        tvUserPhone              = findViewById(R.id.tvUserPhone)
-        tvUserAddress            = findViewById(R.id.tvUserAddress)
-        btnUpdate                = findViewById(R.id.btnUpdate)
         tvLabelPersonalDetails   = findViewById(R.id.tvLabelPersonalDetails)
         tvChangePersonalDetails  = findViewById(R.id.tvChangePersonalDetails)
 
@@ -79,14 +73,8 @@ class ProfileActivity : AppCompatActivity() {
         if (!savedUsername.isNullOrBlank()) {
             tvUserName.text = savedUsername
         } else {
-            tvUserName.text = "Carregando..."
+            tvUserName.text = "..."
         }
-
-        // Para email, deixamos “Carregando...” até vir do back-end
-        tvUserEmail.text = "Carregando..."
-        // Telefone/Endereço apenas como “–” por enquanto
-        tvUserPhone.text   = "-"
-        tvUserAddress.text = "-"
 
         // Registrar launcher para escolher avatar da galeria
         pickImageLauncher = registerForActivityResult(
@@ -138,9 +126,6 @@ class ProfileActivity : AppCompatActivity() {
             return
         }
 
-        btnUpdate.setOnClickListener {
-            Toast.makeText(this, "Clique em Update (implementar envio de dados)", Toast.LENGTH_SHORT).show()
-        }
     }
 
     /**
@@ -161,13 +146,11 @@ class ProfileActivity : AppCompatActivity() {
 
         // 2) Constrói o AlertDialog
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Editar perfil")
+            .setTitle(getString(R.string.edit_profile))
             .setView(dialogView)
-            .setPositiveButton("Salvar", null)   // clicaremos manualmente abaixo
-            .setNegativeButton("Cancelar") { dlg, _ ->
-                dlg.dismiss()
-            }
-            .create()
+            .setPositiveButton(getString(R.string.save), null)   // clicaremos manualmente abaixo
+            .setNegativeButton(getString(R.string.cancel)) { dlg, _ -> dlg.dismiss()
+            }.create()
 
         // 3) Ao mostrar o diálogo, sobrepomos o OnClick do botão “Salvar” para evitar fechar automático
         dialog.setOnShowListener {
@@ -212,7 +195,7 @@ class ProfileActivity : AppCompatActivity() {
                                 }
                                 Toast.makeText(
                                     this@ProfileActivity,
-                                    "Perfil atualizado com sucesso",
+                                    getString(R.string.profile_updated_successfully),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 dialog.dismiss()

@@ -20,16 +20,15 @@ class AddFundsActivity : AppCompatActivity() {
         btnProceed = findViewById(R.id.btnProceed)
         etTotal    = findViewById(R.id.etTotal)  // <-- bind
 
-        // já iniciado com "0.00" pelo XML, mas se quiser:
-        // etTotal.setText("0.00")
 
         btnProceed.setOnClickListener {
             val totalStr = etTotal.text.toString()
             val total = totalStr.toDoubleOrNull()
             if (total == null || total <= 0.0) {
-                Toast.makeText(this, "Informe um valor maior que zero", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Adicione um valor maior que zero", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
 
             when (rgMethods.checkedRadioButtonId) {
                 R.id.rbCard -> {
@@ -45,6 +44,19 @@ class AddFundsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Escolha um método de pagamento", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            // Guardar o valor no SharedPreferences
+            val prefs = getSharedPreferences("wallet", MODE_PRIVATE)
+            val currentBalance = prefs.getFloat("balance", 0f)
+            val newBalance = currentBalance + total.toFloat()
+            prefs.edit().putFloat("balance", newBalance).apply()
+
+            // Toast  mostrar o novo saldo
+            Toast.makeText(this, "€$total adicionado! Novo saldo: €${String.format("%.2f", newBalance)}", Toast.LENGTH_LONG).show()
+
+            // Limpar os campos após a adição
+            etTotal.setText("0.00")
+            rgMethods.clearCheck()
         }
     }
 }

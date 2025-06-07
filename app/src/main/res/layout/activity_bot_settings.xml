@@ -4,16 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="24dp"
         android:layout_width="match_parent"
+        android:background="#FFFFFF"
         android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/tvDefinitionTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="4dp"
+                    android:layout_weight="1"
+                    android:text="Definições do BOT"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"/>
+        </LinearLayout>
 
         <!-- Switch para ligar/desligar o bot -->
         <Switch
             android:id="@+id/switchBotSettingsActive"
             android:text="Bot Ativo"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -21,6 +40,7 @@
         <TextView
             android:text="Par de Trading:"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Spinner
@@ -32,6 +52,7 @@
         <TextView
             android:text="Tipo de Ordem:"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Spinner
@@ -43,11 +64,13 @@
         <TextView
             android:text="Quantidade por Trade:"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotTradeAmount"
             android:hint="ex: 0.001"
+            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -56,11 +79,13 @@
         <TextView
             android:text="Limit Price (se aplicável):"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotLimitPrice"
             android:hint="ex: 27000.00"
+            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -69,11 +94,13 @@
         <TextView
             android:text="Stop Price (se aplicável):"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotStopPrice"
             android:hint="ex: 26500.00"
+            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -82,11 +109,13 @@
         <TextView
             android:text="Trailing Delta (se aplicável):"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotTrailingDelta"
             android:hint="ex: 100.00"
+            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -95,11 +124,13 @@
         <TextView
             android:text="Stop-Loss (%):"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotStopLossPerc"
             android:hint="ex: 2.0"
+            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -107,11 +138,13 @@
         <TextView
             android:text="Take-Profit (%):"
             android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotTakeProfitPerc"
             android:hint="ex: 4.0"
+            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -121,6 +154,7 @@
             android:text="Indicadores Técnicos:"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -133,6 +167,7 @@
             android:id="@+id/etBotRsiThreshold"
             android:hint="RSI Threshold (ex: 30)"
             android:inputType="number"
+            android:textSize="14sp"
             android:layout_marginStart="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -147,6 +182,7 @@
         <CheckBox
             android:id="@+id/cbBotBollinger"
             android:text="Usar Bollinger Bands"
+            android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -155,8 +191,10 @@
         <Button
             android:id="@+id/btnSaveBotSettings"
             android:text="Salvar Configurações do Bot"
-            android:layout_marginTop="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#002BFF" />
     </LinearLayout>
 </ScrollView>

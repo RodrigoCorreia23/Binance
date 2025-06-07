@@ -124,7 +124,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/signup"
-            android:textColor="@android:color/white"
             android:backgroundTint="#002BFF" />
 
         <View android:layout_width="match_parent" android:layout_height="16dp" />

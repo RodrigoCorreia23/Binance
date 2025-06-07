@@ -4,13 +4,16 @@
     android:orientation="vertical"
     android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
     <TextView
         android:text="@string/payment_method"
-        android:textSize="16sp"
+        android:textSize="30sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textStyle="bold"/>
+
 
     <androidx.cardview.widget.CardView
         android:layout_marginTop="16dp"
@@ -62,6 +65,7 @@
         android:layout_marginTop="32dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:backgroundTint="#002BFF"
+        android:layout_marginBottom="24dp"/>
 </LinearLayout>

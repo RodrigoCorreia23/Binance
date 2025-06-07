@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cbNewsletter: CheckBox
     private lateinit var btnSignUp: Button
     private lateinit var tvLogin: TextView
-    private lateinit var tvForgot: TextView
     private lateinit var tvShow: TextView
     private lateinit var tvStatus: TextView
 
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         cbNewsletter = findViewById(R.id.cbNewsletter)
         btnSignUp    = findViewById(R.id.btnSignUp)
         tvLogin      = findViewById(R.id.tvLogin)
-        tvForgot     = findViewById(R.id.tvForgot)
         tvShow       = findViewById(R.id.tvShow)
         tvStatus     = findViewById(R.id.tvStatus)
 
@@ -151,10 +149,6 @@ class MainActivity : AppCompatActivity() {
         tvLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
-        tvForgot.setOnClickListener {
-            // TODO: handle password recovery
-        }
-
         fetchPingStatus()
     }
 

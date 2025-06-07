@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var etPassword: EditText
     private lateinit var tvShow: TextView
     private lateinit var btnLogIn: Button
+    private lateinit var tvSignUp: TextView
     private lateinit var tvForgot: TextView
     private lateinit var tvStatus: TextView
 
@@ -43,12 +44,25 @@ class LoginActivity : AppCompatActivity() {
             setDisplayShowHomeEnabled(true)
             title = "Log In"
         }
+        // Estilo extra
+        toolbar.post {
+            val titleView = toolbar.findViewById<TextView>(
+                com.google.android.material.R.id.action_bar
+            ) ?: toolbar.getChildAt(0) as? TextView
+
+            titleView?.apply {
+                textSize = 30f
+                setTypeface(typeface, android.graphics.Typeface.BOLD)
+            }
+        }
+
 
         // 2) Vincular views
         etEmail    = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         tvShow     = findViewById(R.id.tvShow)
         btnLogIn   = findViewById(R.id.btnLogIn)
+        tvSignUp   = findViewById(R.id.tvSignUp)
         tvForgot   = findViewById(R.id.tvForgot)
         tvStatus   = findViewById(R.id.tvStatus)
 
@@ -167,6 +181,9 @@ class LoginActivity : AppCompatActivity() {
         // 7) “Esqueci a senha” (ainda não implementado)
         tvForgot.setOnClickListener {
             Toast.makeText(this, "Recuperar senha ainda não implementado", Toast.LENGTH_SHORT).show()
+        }
+        tvSignUp.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 

@@ -1,19 +1,21 @@
 package com.example.binance.network
 
 import retrofit2.Call
-import com.example.binance.dto.BalanceResponse
-import retrofit2.http.GET
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
 import retrofit2.http.*
+
+import com.example.binance.dto.BalanceResponse
 import com.example.binance.models.UserProfile
 
-
+// --- DTOs de request/response para login/signup/ping/etc:
 data class HasCredResponse(val hasCredentials: Boolean)
 data class UpdateProfileRequest(val username: String, val email: String)
 
+// Aqui assumimos que você já tem os data classes:
+//   SignUpRequest, SignUpResponse, LoginRequest, LoginResponse, PingResponse, ApiCredentialsRequest
+
 interface BinanceService {
+
     @GET("/api/ping")
     suspend fun ping(): PingResponse
 
@@ -37,15 +39,16 @@ interface BinanceService {
         @Body req: ApiCredentialsRequest
     ): Response<Void>
 
-    @GET("credentials/{userId}/balance")
+    // Atenção: este endpoint retorna diretamente um BalanceResponse (não está dentro de Response<…>).
+    @GET("/api/credentials/{userId}/balance")
     suspend fun getBalance(
         @Path("userId") userId: String
     ): BalanceResponse
 
-    @GET("api/users/{id}")
+    // Estes dois endpoints usam Call<> em vez de suspend fun:
+    @GET("/api/users/{id}")
     fun getUserProfile(
         @Path("id") userId: String,
-        // Se você usa token de autenticação, pode passar no header
         @Header("Authorization") authHeader: String? = null
     ): Call<UserProfile>
 

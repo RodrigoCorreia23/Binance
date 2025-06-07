@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.LoginRequest
 import com.example.binance.network.RetrofitClient
-import com.example.binance.network.HasCredResponse
+import com.example.binance.network.LoginResponse
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,16 +35,16 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Configurar Toolbar
+        // 1) Configurar Toolbar
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
             title = "Log In"
         }
 
+        // 2) Vincular views
         etEmail    = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         tvShow     = findViewById(R.id.tvShow)
@@ -54,11 +54,12 @@ class LoginActivity : AppCompatActivity() {
 
         tvShow.setOnClickListener { togglePasswordVisibility() }
 
+        // 3) Botão de login
         btnLogIn.setOnClickListener {
             val email    = etEmail.text.toString().trim()
             val password = etPassword.text.toString()
 
-            // 1) validação local
+            // Validação local básica
             when {
                 email.isEmpty() || password.isEmpty() -> {
                     tvStatus.text = "Preencha email e senha."
@@ -74,35 +75,36 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            // 2) chamada de login
+            // 4) Chamada de login ao backend
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val resp = RetrofitClient.service
+                    // ➔ Aqui trocamos RetrofitClient.service por RetrofitClient.binanceService:
+                    val resp = RetrofitClient.binanceService
                         .login(LoginRequest(email, password))
 
                     withContext(Dispatchers.Main) {
-                        // limpa erros anteriores
+                        // Limpar erros anteriores
                         etEmail.error    = null
                         etPassword.error = null
                         tvStatus.text    = ""
 
                         when {
                             resp.isSuccessful -> {
-                                // login OK: pega body
+                                // Login bem-sucedido: obter o body (LoginResponse)
                                 val body = resp.body()!!
 
-                                // Armazena userId e token no SharedPreferences
+                                // 5) Armazenar userId e token no SharedPreferences
                                 val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
                                 prefs.edit()
                                     .putString("USER_ID", body.userId)
                                     .putString("AUTH_TOKEN", "Bearer ${body.token}")
                                     .putString("USERNAME",  body.username)
-                                    .putString("EMAIL", body.email)
+                                    .putString("EMAIL",     body.email)
                                     .apply()
 
-                                // 3) agora verifica se já tem API credentials
+                                // 6) Agora verificar se já tem credenciais Binance
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    val check = RetrofitClient.service
+                                    val check = RetrofitClient.binanceService
                                         .hasCredentials(body.userId)
 
                                     withContext(Dispatchers.Main) {
@@ -113,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
                                             else
                                                 ApiCredentialsActivity::class.java
 
+                                            // Abrir próxima tela e limpar backstack
                                             startActivity(
                                                 Intent(
                                                     this@LoginActivity,
@@ -132,16 +135,19 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             }
                             resp.code() == 404 -> {
+                                // Exemplo: backend retornou “email não encontrado”
                                 val msg = JSONObject(resp.errorBody()?.string().orEmpty())
                                     .optString("email", "Email não cadastrado")
                                 etEmail.error = msg
                             }
                             resp.code() == 401 -> {
+                                // Exemplo: backend retornou “senha incorreta”
                                 val msg = JSONObject(resp.errorBody()?.string().orEmpty())
                                     .optString("password", "Senha incorreta")
                                 etPassword.error = msg
                             }
                             else -> {
+                                // Qualquer outro erro (500, 400 etc.)
                                 val err = resp.errorBody()?.string().orEmpty()
                                 val msg = runCatching {
                                     JSONObject(err).optString("message", err)
@@ -158,8 +164,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        // 7) “Esqueci a senha” (ainda não implementado)
         tvForgot.setOnClickListener {
-            // TODO: recuperar senha
             Toast.makeText(this, "Recuperar senha ainda não implementado", Toast.LENGTH_SHORT).show()
         }
     }
@@ -169,6 +175,7 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
+    // Alterna visibilidade da senha
     private fun togglePasswordVisibility() {
         isPasswordVisible = !isPasswordVisible
         etPassword.transformationMethod =

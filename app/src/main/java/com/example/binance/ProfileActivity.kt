@@ -192,7 +192,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 // 4) Chama o Retrofit para atualizar no back-end
                 val updateReq = UpdateProfileRequest(newUsername, newEmail)
-                RetrofitClient.service
+                RetrofitClient.apiService
                     .updateUserProfile(userId, authToken, updateReq)
                     .enqueue(object : Callback<UserProfile> {
                         override fun onResponse(
@@ -254,7 +254,7 @@ class ProfileActivity : AppCompatActivity() {
      *  Carrega username e e-mail atuais do servidor (GET /api/users/{id}).
      */
     private fun fetchUserProfile(userId: String, authToken: String) {
-        RetrofitClient.service
+        RetrofitClient.apiService
             .getUserProfile(userId, authToken)
             .enqueue(object : Callback<UserProfile> {
                 override fun onResponse(

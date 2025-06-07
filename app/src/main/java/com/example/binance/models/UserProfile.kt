@@ -12,10 +12,4 @@ data class UserProfile(
     @SerializedName("email")
     val email: String,
 
-    // Se o JSON tiver telefone e endereço, descomente abaixo. Senão, remova.
-    @SerializedName("phone")
-    val phone: String?,
-
-    @SerializedName("address")
-    val address: String?
 )

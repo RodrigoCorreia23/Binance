@@ -1,8 +1,11 @@
-// network/ApiCredentialsRequest.kt
 package com.example.binance.network
 
+/**
+ * JSON enviado ao backend para salvar as credenciais da Binance (API Key + Secret Key).
+ * Endpoint: POST /api/credentials
+ */
 data class ApiCredentialsRequest(
-    val userId:    String,
-    val apiKey:    String,
-    val secretKey: String
+    var userId: String?   = null,
+    var apiKey: String?   = null,
+    var secretKey: String? = null
 )

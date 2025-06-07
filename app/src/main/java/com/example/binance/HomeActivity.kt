@@ -1,5 +1,6 @@
 package com.example.binance
 
+import com.example.binance.BotSettingsActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -154,7 +155,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_settings -> {
                     // caso tenha SettingsActivity, abra aqui. Senão, apenas um Toast.
-                    Toast.makeText(this, "Settings selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@HomeActivity, BotSettingsActivity::class.java))
                     true
                 }
                 else -> false

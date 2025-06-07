@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,67 +6,246 @@
     android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:background="#FFFFFF">
+    android:background="#F8F9FA">
 
+    <!-- Título -->
     <TextView
-        android:text="@string/payment_method"
-        android:textSize="30sp"
+        android:text="Payment"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1A1A1A"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"/>
+        android:layout_marginBottom="8dp"/>
 
+    <!-- Subtítulo -->
+    <TextView
+        android:text="Payment Method"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"/>
 
+    <!-- Card com métodos de pagamento -->
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="8dp">
+        app:cardElevation="2dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="32dp">
 
-        <RadioGroup
-            android:id="@+id/rgMethods"
+        <LinearLayout
             android:orientation="vertical"
             android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/rbCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/card"/>
+            <RadioGroup
+                android:id="@+id/rgMethods"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/rbBank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bank_account"/>
+                <!-- Opção Cartão -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="selectCard">
 
-            <RadioButton
-                android:id="@+id/rbPaypal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/paypal"/>
-        </RadioGroup>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginEnd="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/card"
+                            android:layout_gravity="center"
+                            android:contentDescription="Card icon" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:text="Card"
+                        android:textSize="16sp"
+                        android:textColor="#1A1A1A"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                        android:id="@+id/rbCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:buttonTint="#007AFF"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+                <!-- Linha divisória -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"
+                    android:layout_marginVertical="4dp"/>
+
+                <!-- Opção Conta Bancária -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="selectBank">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginEnd="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/bank"
+                            android:layout_gravity="center"
+                            android:contentDescription="Bank icon" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:text="Bank account"
+                        android:textSize="16sp"
+                        android:textColor="#1A1A1A"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                        android:id="@+id/rbBank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#007AFF"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+                <!-- Linha divisória -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"
+                    android:layout_marginVertical="4dp"/>
+
+                <!-- Opção PayPal -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="selectPaypal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginEnd="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/paypal"
+                            android:layout_gravity="center"
+                            android:contentDescription="PayPal icon" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:text="Paypal"
+                        android:textSize="16sp"
+                        android:textColor="#1A1A1A"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                        android:id="@+id/rbPaypal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#007AFF"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+            </RadioGroup>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/etTotal"
-        android:layout_marginTop="32dp"
+    <!-- Seção Total -->
+    <TextView
+        android:text="Total"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:text="0.00"
-        android:hint="@string/total"
-        android:textSize="16sp"/>
+        app:cardElevation="2dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="32dp">
 
+        <EditText
+            android:id="@+id/etTotal"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:inputType="numberDecimal"
+            android:text="0.00"
+            android:hint="Enter amount"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:gravity="center_vertical"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Spacer para empurrar o botão para baixo -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Botão Proceed -->
     <Button
         android:id="@+id/btnProceed"
-        android:text="@string/proceed_payment"
-        android:layout_marginTop="32dp"
+        android:text="Proceed to payment"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
+        android:background="@drawable/button_rounded"
         android:textColor="@android:color/white"
-        android:backgroundTint="#002BFF"
-        android:layout_marginBottom="24dp"/>
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:elevation="2dp"/>
+
 </LinearLayout>

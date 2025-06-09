@@ -16,6 +16,7 @@
 
     <string name="search_symbol">Search symbol</string>
     <string name="add_funds">Add Funds</string>
+    <string name="payment">Payment</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -68,5 +69,7 @@
     <string name="back">Back</string>
     <string name="next">Next</string>
     <string name="finish">End</string>
+
+
 
 </resources>

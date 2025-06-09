@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.graphics.Color
 import android.graphics.Paint
+import com.example.binance.network.ApiClient
 
 class HomeActivity : AppCompatActivity() {
 
@@ -65,12 +66,6 @@ class HomeActivity : AppCompatActivity() {
         chart           = findViewById(R.id.chart)
         bottomNav       = findViewById(R.id.bottom_nav)
 
-        // Ler Saldo do SharedPreferences
-        val walletPrefs = getSharedPreferences("wallet", MODE_PRIVATE)
-        val balance = walletPrefs.getFloat("balance", 0f)
-
-        // Exibir o saldo em USD
-        tvUsdBalance.text = String.format(Locale.getDefault(), "$%,.2f", balance)
 
         tvCryptoBalance.text = "0.000000"
         tvSymbolLabel.text   = "BTCUSDT"
@@ -89,6 +84,14 @@ class HomeActivity : AppCompatActivity() {
         val prefs  = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", "") ?: ""
         Log.d("HomeActivity", "Loaded from prefs → userId='$userId'")
+
+        // Load and display real balance
+        if (userId.isNotEmpty()) {
+            loadBalance(userId)
+        } else {
+            Log.e("HomeActivity", "UserId está vazio!")
+        }
+
 
         // popula symbols e inicia gráfico
         lifecycleScope.launch {
@@ -161,12 +164,6 @@ class HomeActivity : AppCompatActivity() {
 
         // item “Home” selecionado por padrão
         bottomNav.selectedItemId = R.id.nav_home
-    }
-
-    private fun updateLocalBalance() {
-        val walletPrefs = getSharedPreferences("wallet", MODE_PRIVATE)
-        val fakeBalance = walletPrefs.getFloat("balance", 0f)
-        tvUsdBalance.text = String.format("€%.2f", fakeBalance)
     }
 
     private fun switchSymbol(symbol: String) {
@@ -262,7 +259,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateLocalBalance()
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", "") ?: ""
+        if (userId.isNotEmpty()) {
+            loadBalance(userId)
+        }
     }
 
     override fun onDestroy() {
@@ -270,4 +271,27 @@ class HomeActivity : AppCompatActivity() {
         ws?.close(1000, null)
         client.dispatcher.executorService.shutdown()
     }
+
+    private fun loadBalance(userId: String) {
+        Log.d("HomeActivity", "Iniciando loadBalance para userId: '$userId'")
+
+        lifecycleScope.launch {
+            val balance = ApiClient.getUserBalance(userId)
+            Log.d("HomeActivity", "Balance retornado: $balance")
+
+            if (balance != null) {
+                Log.d("HomeActivity", "Atualizando UI com balance: $balance")
+                tvUsdBalance.text = String.format(Locale.getDefault(), "€%,.2f", balance)
+            } else {
+                Log.e("HomeActivity", "Balance é null")
+                Toast.makeText(
+                    this@HomeActivity,
+                    "Erro ao carregar saldo",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+
 }

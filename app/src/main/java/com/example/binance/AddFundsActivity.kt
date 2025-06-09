@@ -1,22 +1,13 @@
 package com.example.binance
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class AddFundsActivity : AppCompatActivity() {
     private lateinit var rgMethods: RadioGroup
     private lateinit var btnProceed: Button
     private lateinit var etTotal: EditText
-
-    private lateinit var rbCard: RadioButton
-    private lateinit var rbBank: RadioButton
-    private lateinit var rbPaypal: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +16,6 @@ class AddFundsActivity : AppCompatActivity() {
         rgMethods  = findViewById(R.id.rgMethods)
         btnProceed = findViewById(R.id.btnProceed)
         etTotal    = findViewById(R.id.etTotal)
-
-        rbCard = findViewById(R.id.rbCard)
-        rbBank = findViewById(R.id.rbBank)
-        rbPaypal = findViewById(R.id.rbPaypal)
 
         btnProceed.setOnClickListener {
             val totalStr = etTotal.text.toString()
@@ -61,25 +48,11 @@ class AddFundsActivity : AppCompatActivity() {
             val newBalance = currentBalance + total.toFloat()
             prefs.edit().putFloat("balance", newBalance).apply()
 
-            // Toast mostrar o novo saldo
             Toast.makeText(this, "€$total adicionado! Novo saldo: €${String.format("%.2f", newBalance)}", Toast.LENGTH_LONG).show()
 
-            // Limpar os campos após a adição
+            // Limpar os campos
             etTotal.setText("0.00")
             rgMethods.clearCheck()
         }
-    }
-
-    // Métodos para os cliques nas opções
-    fun selectCard(view: View) {
-        rbCard.isChecked = true
-    }
-
-    fun selectBank(view: View) {
-        rbBank.isChecked = true
-    }
-
-    fun selectPaypal(view: View) {
-        rbPaypal.isChecked = true
     }
 }

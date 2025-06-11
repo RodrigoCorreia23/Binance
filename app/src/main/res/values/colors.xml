@@ -8,4 +8,10 @@
     <!-- Aqui definimos o colorPrimary que o seu layout está tentando usar -->
     <color name="colorPrimary">#1E2ED3</color>
     <!-- (troque "#1E2ED3" pelo hex ou cor Material que você quiser) -->
+
+    <color name="colorBuy">#00C853</color>     <!-- verde -->
+    <color name="colorSell">#D50000</color>    <!-- vermelho -->
+    <color name="colorProfit">#00E676</color>  <!-- verde claro -->
+    <color name="colorLoss">#FF1744</color>    <!-- vermelho claro -->
+    <color name="teal_700">#018786</color>
 </resources>

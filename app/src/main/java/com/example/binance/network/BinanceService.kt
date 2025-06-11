@@ -5,7 +5,10 @@ import retrofit2.Response
 import retrofit2.http.*
 
 import com.example.binance.dto.BalanceResponse
+import com.example.binance.models.BotTrade
+import com.example.binance.models.Trade
 import com.example.binance.models.UserProfile
+import java.util.UUID
 
 // --- DTOs de request/response para login/signup/ping/etc:
 data class HasCredResponse(val hasCredentials: Boolean)
@@ -58,4 +61,13 @@ interface BinanceService {
         @Header("Authorization") authHeader: String? = null,
         @Body request: UpdateProfileRequest
     ): Call<UserProfile>
+
+    @GET("/api/bot-trades/user/{userId}")
+    suspend fun getBotTrades(
+        @Path("userId") userId: String
+    ): List<BotTrade>
+
+    @GET("api/bot-trades/user/{userId}")
+    suspend fun getTrades(@Path("userId") userId: UUID): List<BotTrade>
+
 }

@@ -36,7 +36,7 @@ class AddFundsActivity : AppCompatActivity() {
 
         // Fecha a atividade se o ID do utilizador não estiver disponível
         if (userId.isEmpty()) {
-            Toast.makeText(this, "Erro: ID de utilizador não encontrado/autenticado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.id_not_found), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -46,22 +46,22 @@ class AddFundsActivity : AppCompatActivity() {
             val total = totalStr.toDoubleOrNull()
 
             if (total == null || total <= 0.0) {
-                Toast.makeText(this, "Adicione um valor maior que zero", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.value_bigger_than_zero), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             when (rgMethods.checkedRadioButtonId) {
                 R.id.rbCard -> {
-                    Toast.makeText(this, "Cartão selecionado (€$totalStr)", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.card_selected) +"(€$totalStr)", Toast.LENGTH_SHORT).show()
                 }
                 R.id.rbBank -> {
-                    Toast.makeText(this, "Conta bancária selecionada (€$totalStr)", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.bank_selected) + "(€$totalStr)", Toast.LENGTH_SHORT).show()
                 }
                 R.id.rbPaypal -> {
-                    Toast.makeText(this, "PayPal selecionado (€$totalStr)", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.paypal_selected) +"(€$totalStr)", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(this, "Escolha um método de pagamento", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.choose_payment_method), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
@@ -71,12 +71,12 @@ class AddFundsActivity : AppCompatActivity() {
                 val success = ApiClient.addFunds(userId, total.toFloat())
 
                 if (success) {
-                    Toast.makeText(this@AddFundsActivity, "€$total adicionado com sucesso!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@AddFundsActivity, getString(R.string.added_successfully) +": €$total ", Toast.LENGTH_LONG).show()
 
                     etTotal.setText("0.00")
                     rgMethods.clearCheck()
                 } else {
-                    Toast.makeText(this@AddFundsActivity, "Erro ao adicionar fundos. Tenta novamente.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AddFundsActivity, getString(R.string.error_adding_funds), Toast.LENGTH_SHORT).show()
                 }
             }
         }

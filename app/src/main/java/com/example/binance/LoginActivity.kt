@@ -1,6 +1,7 @@
 package com.example.binance
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -47,12 +48,12 @@ class LoginActivity : AppCompatActivity() {
         // Estilo extra
         toolbar.post {
             val titleView = toolbar.findViewById<TextView>(
-                com.google.android.material.R.id.action_bar
+                com.google.android.material.R.id.title
             ) ?: toolbar.getChildAt(0) as? TextView
 
             titleView?.apply {
                 textSize = 30f
-                setTypeface(typeface, android.graphics.Typeface.BOLD)
+                setTypeface(typeface, Typeface.BOLD)
             }
         }
 

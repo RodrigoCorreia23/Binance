@@ -117,7 +117,7 @@ class HomeActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@HomeActivity,
-                            "Símbolo inválido",
+                            getString(R.string.invalid_symbol),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -149,12 +149,12 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_profile -> {
-                    // abre ProfileActivity
+                    // Abre ProfileActivity
                     startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
                     true
                 }
                 R.id.nav_settings -> {
-                    // caso tenha SettingsActivity, abra aqui. Senão, apenas um Toast.
+                    // Abre BotSettingsActivity
                     startActivity(Intent(this@HomeActivity, BotSettingsActivity::class.java))
                     true
                 }
@@ -286,7 +286,7 @@ class HomeActivity : AppCompatActivity() {
                 Log.e("HomeActivity", "Balance é null")
                 Toast.makeText(
                     this@HomeActivity,
-                    "Erro ao carregar saldo",
+                    getString(R.string.error_balance),
                     Toast.LENGTH_SHORT
                 ).show()
             }

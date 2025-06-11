@@ -1,4 +1,5 @@
 <resources>
+    <!--Add Funds Activity-->
     <string name="app_name">Binance</string>
     <string name="payment_method">Método de Pagamento</string>
     <string name="card">Cartão</string>
@@ -6,29 +7,69 @@
     <string name="paypal">PayPal</string>
     <string name="total">Total</string>
     <string name="proceed_payment">Pagar</string>
+    <string name="id_not_found">Erro: ID de utilizador não encontrado</string>
+    <string name="value_bigger_than_zero">O valore deve ser maiore que zero</string>
+    <string name="card_selected">Cartão Selecionado</string>
+    <string name="bank_selected">Banco Selecionado</string>
+    <string name="paypal_selected">Paypal Selecionado</string>
+    <string name="choose_payment_method">Escoha um metodo de pagamento</string>
+    <string name="added_successfully">Adicionado com sucesso</string>
+    <string name="error_adding_funds">Erro ao adicionar fundos. Tente novamente.</string>
 
+    <!--API Credentials Activity-->
     <string name="api_title">Enter your Binance API credentials Securely</string>
     <string name="api_key">API Key</string>
     <string name="secret_key">Secret Key</string>
     <string name="show">Show</string>
     <string name="api_warning">Nunca partilhes a tua Chave Secreta com ninguém. Não guardamos estas credenciais no teu dispositivo.</string>
     <string name="save_continue">Guardar e Continuar</string>
+    <string name="invalid_user">Utilizador inválido</string>
+    <string name="mandatory_api_key">API Key é obrigatória</string>
+    <string name="mandatory_secret_key">Secret Key é obrigatória</string>
+    <string name="network_error">Erro na rede</string>
 
+    <!-- Home -->
     <string name="search_symbol">Pesquisar símbolo</string>
     <string name="add_funds">Adicionar Fundos</string>
     <string name="payment">Pagamentos</string>
+    <string name="error_balance">Erro ao carregar o saldo</string>
+    <string name="invalid_symbol">Simbolo Inválido</string>
 
+    <!-- Bot Settings activity-->
+   <string name="state_error">Erro a carregar o estado</string>
+    <string name="bot_is_enable">Bot Ativado</string>
+    <string name="bot_is_disable">Bot Desativado</string>
+    <string name="error">Erro</string>
+    <string name="failed">Falha</string>
+    <string name="saved_settings">Configurações guardadas</string>
+    <string name="credentials_error">Erro nas credenciais</string>
+    <string name="trade_pair">Par de Trading:</string>
+    <string name="order_type">Tipo de Ordem:</string>
+    <string name="trade_quantity">Quantidade por Trade:</string>
+    <string name="price_limit">Preço Limite (se aplicável):</string>
+    <string name="stop_price">Preço Stop (se aplicável):</string>
+    <string name="trailing_delta">"Trailing Delta (se aplicável):"</string>
+    <string name="indicators">Indicadores Técnicos:</string>
+    <string name="save_settings">Guardar Configurações do Bot</string>
+
+    <!-- Main Activity-->
     <string name="email">Email</string>
     <string name="password">Palavra-passe</string>
     <string name="login">Entrar</string>
     <string name="forgot_password">Esqueceste-te da palavra-passe?</string>
-
+    <string name="fill_all_fields">Por favor preencha todos os campos.</string>
+    <string name="invalid_email">Email Inválido</string>
+    <string name="invalid_password">Palavra-passe deve te pelo menos 6 caracteres</string>
+    <string name="welcome">Bem vindo</string>
+    <string name="signup_error">Houve um erro no registo</string>
+    <string name="server_error">Erro do Servidor</string>
     <string name="signup_title">Criar Conta</string>
     <string name="login_text">Entrar</string>
     <string name="name">Nome</string>
     <string name="newsletter">Gostaria de receber a newsletter e outras informações promocionais.</string>
     <string name="signup">Criar Conta</string>
     <string name="status_loading">Estado: a carregar...</string>
+
 
     <string name="home">Início</string>
     <string name="refresh">Atualizar</string>
@@ -44,6 +85,7 @@
     <string name="language">Idioma</string>
     <string name="loading_profile">A Carregar ...</string>
 
+
     <!--Edit Profile Dialog-->
     <string name="username">Username</string>
     <string name="new_username">Novo Username</string>
@@ -51,6 +93,11 @@
     <string name="save">Guardar</string>
     <string name="cancel">Cancel</string>
     <string name="profile_updated_successfully">Alteração concluida com sucesso</string>
+    <string name="error_username_required">Escreva um username</string>
+    <string name="error_email_required">Escreva um e-mail</string>
+    <string name="error_invalid_email">Email inválido</string>
+    <string name="error_update_conflict">Falha ao atualizar: </string>
+    <string name="error_getting_profile">Erro a ir buscar o perfil</string>
 
     <!--OnBoarding Page (Tutorials)-->
     <string name="onboarding_welcome_title">Bem vindo ao mundo das Criptomoedas, Utilizador!</string>

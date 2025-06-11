@@ -1,4 +1,5 @@
 <resources>
+    <!--Add Funds Activity-->
     <string name="app_name">Binance</string>
     <string name="payment_method">Payment Method</string>
     <string name="card">Card</string>
@@ -6,22 +7,62 @@
     <string name="paypal">PayPal</string>
     <string name="total">Total</string>
     <string name="proceed_payment">Pay</string>
+    <string name="id_not_found">Error: User ID not found</string>
+    <string name="value_bigger_than_zero">The value must be bigger than zero</string>
+    <string name="card_selected">Card Selected</string>
+    <string name="bank_selected">Bank Selected</string>
+    <string name="paypal_selected">Paypal Selected</string>
+    <string name="choose_payment_method">Choose a payment method</string>
+    <string name="added_successfully">Added Successfully</string>
+    <string name="error_adding_funds">Error adding funds. Try again.</string>
 
+    <!--API Credentials Activity-->
     <string name="api_title">Enter your Binance API credentials Securely</string>
     <string name="api_key">API Key</string>
     <string name="secret_key">Secret Key</string>
     <string name="show">Show</string>
     <string name="api_warning">Never share your Secret Key with anyone. We do not store these credentials on your device.</string>
     <string name="save_continue">Save and Continue</string>
+    <string name="invalid_user">Invalid User</string>
+    <string name="mandatory_api_key">API Key is mandatory</string>
+    <string name="mandatory_secret_key">Secret Key is mandatory</string>
+    <string name="network_error">Network Error</string>
 
+    <!-- Home -->
     <string name="search_symbol">Search symbol</string>
     <string name="add_funds">Add Funds</string>
     <string name="payment">Payment</string>
+    <string name="error_balance">Error loading your balance</string>
+    <string name="invalid_symbol">Invalid Symbol</string>
 
+    <!-- Bot Settings activity-->
+    <string name="state_error">Error loading the state</string>
+    <string name="bot_is_enable">Bot is enabled</string>
+    <string name="bot_is_disable">Bot is disabled</string>
+    <string name="error">Error</string>
+    <string name="failed">Failed</string>
+    <string name="saved_settings">Settings are saved</string>
+    <string name="credentials_error">Error in the credentials</string>
+    <string name="trade_pair">Trading Pair:</string>
+    <string name="order_type">Order Type:</string>
+    <string name="trade_quantity">Trade Quantity:</string>
+    <string name="price_limit">Price Limit (if applicable):</string>
+    <string name="stop_price">Stop Price (if applicable):</string>
+    <string name="trailing_delta">"Trailing Delta (if applicable):"</string>
+    <string name="indicators">Technical Indicators:</string>
+    <string name="save_settings">Save Bot Settings</string>
+
+    <!-- Main Activity-->
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Log In</string>
     <string name="forgot_password">Forgot your password?</string>
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Passwords must have at least 6 characters</string>
+    <string name="welcome">Welcome</string>
+    <string name="signup_error">There was an error in the registration</string>
+    <string name="server_error">Server Error</string>
 
     <string name="signup_title">Sign Up</string>
     <string name="login_text">Login</string>
@@ -51,6 +92,11 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="profile_updated_successfully">Updated successfully</string>
+    <string name="error_username_required">Enter a username</string>
+    <string name="error_email_required">Enter an email</string>
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_update_conflict">Update Failure:</string>
+    <string name="error_getting_profile">Error getting the profile</string>
 
     <!--OnBoarding Page (Tutorials)-->
     <string name="onboarding_welcome_title">Welcome to the world of Cryptocurrencies, User!</string>

@@ -24,7 +24,7 @@
                 android:contentDescription="Back"/>
 
         <TextView
-                android:text="Payment"
+                android:text="@string/payment"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#1A1A1A"
@@ -42,7 +42,7 @@
 
         <!-- Payment Method Section -->
         <TextView
-                android:text="Payment Method"
+                android:text="@string/payment_method"
                 android:textSize="14sp"
                 android:textColor="#666666"
                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                         android:id="@+id/rbCard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Card"
+                        android:text="@string/card"
                         android:textSize="16sp"
                         android:checked="true"/>
 
@@ -76,21 +76,21 @@
                         android:id="@+id/rbBank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bank account"
+                        android:text="@string/bank_account"
                         android:textSize="16sp"/>
 
                 <RadioButton
                         android:id="@+id/rbPaypal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Paypal"
+                        android:text="@string/paypal"
                         android:textSize="16sp"/>
             </RadioGroup>
         </androidx.cardview.widget.CardView>
 
         <!-- Total Section -->
         <TextView
-                android:text="Total"
+                android:text="@string/total"
                 android:textSize="14sp"
                 android:textColor="#666666"
                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
 
         <Button
                 android:id="@+id/btnProceed"
-                android:text="Proceed to payment"
+                android:text="@string/proceed_payment"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/button_rounded"

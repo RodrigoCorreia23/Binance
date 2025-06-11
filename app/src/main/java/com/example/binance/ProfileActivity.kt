@@ -161,15 +161,15 @@ class ProfileActivity : AppCompatActivity() {
 
                 // Validação simples
                 if (newUsername.isEmpty()) {
-                    etNewUsername.error = "Digite um username"
+                    etNewUsername.error = getString(R.string.error_username_required)
                     return@setOnClickListener
                 }
                 if (newEmail.isEmpty()) {
-                    etNewEmail.error = "Digite um e-mail"
+                    etNewEmail.error = getString(R.string.error_email_required)
                     return@setOnClickListener
                 }
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
-                    etNewEmail.error = "Email inválido"
+                    etNewEmail.error = getString(R.string.error_invalid_email)
                     return@setOnClickListener
                 }
 
@@ -202,17 +202,16 @@ class ProfileActivity : AppCompatActivity() {
                             } else {
                                 // Tratar erros de validação enviados pelo servidor (409 conflit, etc.)
                                 if (response.code() == 409) {
-                                    // Exemplo: body pode conter {"email":"Email já está em uso"}
                                     val erroMap = response.errorBody()?.string().orEmpty()
                                     Toast.makeText(
                                         this@ProfileActivity,
-                                        "Falha ao atualizar: $erroMap",
+                                        getString(R.string.error_update_conflict) +"$erroMap",
                                         Toast.LENGTH_LONG
                                     ).show()
                                 } else {
                                     Toast.makeText(
                                         this@ProfileActivity,
-                                        "Erro ${response.code()} ao atualizar perfil",
+                                        getString(R.string.error_update_conflict) +"${response.code()}",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -222,7 +221,7 @@ class ProfileActivity : AppCompatActivity() {
                         override fun onFailure(call: Call<UserProfile>, t: Throwable) {
                             Toast.makeText(
                                 this@ProfileActivity,
-                                "Erro de conexão: ${t.localizedMessage}",
+                                 getString(R.string.network_error)+"${t.localizedMessage}",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -252,7 +251,7 @@ class ProfileActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@ProfileActivity,
-                            "Falha ao buscar perfil: ${response.code()}",
+                            getString(R.string.error_getting_profile) +"${response.code()}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -261,7 +260,7 @@ class ProfileActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<UserProfile>, t: Throwable) {
                     Toast.makeText(
                         this@ProfileActivity,
-                        "Erro de conexão: ${t.localizedMessage}",
+                        getString(R.string.network_error) + "${t.localizedMessage}",
                         Toast.LENGTH_LONG
                     ).show()
                 }

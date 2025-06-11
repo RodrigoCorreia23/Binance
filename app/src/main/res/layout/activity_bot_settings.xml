@@ -13,13 +13,13 @@
         <!-- Switch para ligar/desligar o bot -->
         <Switch
             android:id="@+id/switchBotSettingsActive"
-            android:text="Bot Ativo"
+            android:text="@string/bot_is_enable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <!-- Spinner: Par de Trading -->
         <TextView
-            android:text="Par de Trading:"
+            android:text="@string/trade_pair"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -41,7 +41,7 @@
 
         <!-- Quantidade por Trade -->
         <TextView
-            android:text="Quantidade por Trade:"
+            android:text="@string/trade_quantity"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -54,7 +54,7 @@
 
         <!-- Limit Price -->
         <TextView
-            android:text="Limit Price (se aplicável):"
+            android:text="@string/price_limit"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -67,7 +67,7 @@
 
         <!-- Stop Price -->
         <TextView
-            android:text="Stop Price (se aplicável):"
+            android:text="@string/stop_price"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -80,7 +80,7 @@
 
         <!-- Trailing Delta -->
         <TextView
-            android:text="Trailing Delta (se aplicável):"
+            android:text="@string/trailing_delta"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -118,7 +118,7 @@
 
         <!-- Indicadores -->
         <TextView
-            android:text="Indicadores Técnicos:"
+            android:text="@string/indicators"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
 
         <CheckBox
             android:id="@+id/cbBotRsi"
-            android:text="Usar RSI"
+            android:text="RSI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -139,14 +139,14 @@
 
         <CheckBox
             android:id="@+id/cbBotMacd"
-            android:text="Usar MACD"
+            android:text="MACD"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <CheckBox
             android:id="@+id/cbBotBollinger"
-            android:text="Usar Bollinger Bands"
+            android:text="Bollinger Bands"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -154,7 +154,7 @@
         <!-- Botão para salvar configurações -->
         <Button
             android:id="@+id/btnSaveBotSettings"
-            android:text="Salvar Configurações do Bot"
+            android:text="@string/save_settings"
             android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

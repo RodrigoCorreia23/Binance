@@ -1,124 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white" >
-
-    <!-- Conteúdo scrollável -->
-    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:paddingTop="16dp"
-        android:paddingBottom="56dp">
+        android:background="@color/background">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:paddingTop="16dp"
+            android:paddingBottom="56dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp">
 
             <!-- 1) SearchBar -->
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/et_background"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/et_background"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_search"
-                    app:tint="#888" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_search"
+                        app:tint="@color/grayDark" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/acSymbol"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="@string/search_symbol"
-                    android:inputType="text"
-                    android:paddingStart="8dp"
-                    android:background="@android:color/transparent" />
+                        android:id="@+id/acSymbol"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="@string/search_symbol"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/grayDark"
+                        android:inputType="text"
+                        android:paddingStart="8dp"
+                        android:background="@android:color/transparent" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="24dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
 
             <!-- 2) Saldo em USD + Add Funds -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/tvUsdBalance"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="$ 0.00"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="#006AFF" />
+                        android:id="@+id/tvUsdBalance"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="$ 0.00"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary" />
 
                 <Button
-                    android:id="@+id/btnAddFunds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="@string/add_funds"
-                    android:backgroundTint="#006AFF"
-                    android:textColor="@android:color/white" />
+                        android:id="@+id/btnAddFunds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="@string/add_funds"
+                        android:backgroundTint="@color/button_bg"
+                        android:textColor="@color/button_text" />
             </LinearLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp" />
 
             <!-- 3) Saldo / Preço do par -->
             <TextView
-                android:id="@+id/tvCryptoBalance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0.000000"
-                android:textSize="16sp"
-                android:gravity="end"
-                android:textColor="#333"
-                android:paddingBottom="4dp"/>
+                    android:id="@+id/tvCryptoBalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.000000"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/text_primary"
+                    android:paddingBottom="4dp" />
 
             <!-- 4) Símbolo Atual -->
             <TextView
-                android:id="@+id/tvSymbolLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="BTCUSDT"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#333"
-                android:paddingBottom="8dp"/>
+                    android:id="@+id/tvSymbolLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BTCUSDT"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"
+                    android:paddingBottom="8dp" />
 
             <!-- 5) CandleStickChart -->
             <com.github.mikephil.charting.charts.CandleStickChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
-
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
         </LinearLayout>
     </ScrollView>
 
     <!-- 6) Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="#006AFF"
-        app:itemTextColor="#006AFF" />
-
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconTint="@color/colorPrimary"
+            app:itemTextColor="@color/colorPrimary" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

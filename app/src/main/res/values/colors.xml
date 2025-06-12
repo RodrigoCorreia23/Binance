@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Outras cores que você já tenha -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="grayDark">#666666</color>
 
-    <!-- Aqui definimos o colorPrimary que o seu layout está tentando usar -->
     <color name="colorPrimary">#1E2ED3</color>
-    <!-- (troque "#1E2ED3" pelo hex ou cor Material que você quiser) -->
+    <color name="background">#F5F5F5</color>
+    <color name="text_primary">#000000</color>
+    <color name="button_bg">#6200EE</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="error_color">#D32F2F</color>
+    <color name="indicator_active">#3B82F6</color>
+    <color name="indicator_inactive">#D1D5DB</color>
 </resources>

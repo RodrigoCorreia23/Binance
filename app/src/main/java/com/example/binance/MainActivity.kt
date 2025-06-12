@@ -14,12 +14,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.RetrofitClient
 import com.example.binance.network.SignUpRequest
-import com.example.binance.SettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+//import androidx.appcompat.app.AppCompatDelegate //Modo escuro hardcoded
 
 class MainActivity : AppCompatActivity() {
 

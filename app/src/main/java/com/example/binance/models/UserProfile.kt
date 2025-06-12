@@ -12,4 +12,6 @@ data class UserProfile(
     @SerializedName("email")
     val email: String,
 
+    @SerializedName("balance")
+    val balance: Float
 )

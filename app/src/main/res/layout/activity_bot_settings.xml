@@ -4,43 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:background="#FFFFFF"
         android:layout_height="wrap_content">
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:id="@+id/tvDefinitionTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="?attr/actionBarSize"
-                    android:elevation="4dp"
-                    android:layout_weight="1"
-                    android:text="Definições do BOT"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"/>
-        </LinearLayout>
 
         <!-- Switch para ligar/desligar o bot -->
         <Switch
             android:id="@+id/switchBotSettingsActive"
-            android:text="Bot Ativo"
-            android:textSize="20sp"
+            android:text="@string/bot_is_enable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <!-- Spinner: Par de Trading -->
         <TextView
-            android:text="Par de Trading:"
+            android:text="@string/trade_pair"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Spinner
@@ -52,7 +32,6 @@
         <TextView
             android:text="Tipo de Ordem:"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Spinner
@@ -62,60 +41,52 @@
 
         <!-- Quantidade por Trade -->
         <TextView
-            android:text="Quantidade por Trade:"
+            android:text="@string/trade_quantity"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotTradeAmount"
             android:hint="ex: 0.001"
-            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <!-- Limit Price -->
         <TextView
-            android:text="Limit Price (se aplicável):"
+            android:text="@string/price_limit"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotLimitPrice"
             android:hint="ex: 27000.00"
-            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <!-- Stop Price -->
         <TextView
-            android:text="Stop Price (se aplicável):"
+            android:text="@string/stop_price"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotStopPrice"
             android:hint="ex: 26500.00"
-            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <!-- Trailing Delta -->
         <TextView
-            android:text="Trailing Delta (se aplicável):"
+            android:text="@string/trailing_delta"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotTrailingDelta"
             android:hint="ex: 100.00"
-            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -124,13 +95,11 @@
         <TextView
             android:text="Stop-Loss (%):"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotStopLossPerc"
             android:hint="ex: 2.0"
-            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -138,51 +107,46 @@
         <TextView
             android:text="Take-Profit (%):"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotTakeProfitPerc"
             android:hint="ex: 4.0"
-            android:textSize="14sp"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <!-- Indicadores -->
         <TextView
-            android:text="Indicadores Técnicos:"
+            android:text="@string/indicators"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <CheckBox
             android:id="@+id/cbBotRsi"
-            android:text="Usar RSI"
+            android:text="RSI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/etBotRsiThreshold"
             android:hint="RSI Threshold (ex: 30)"
             android:inputType="number"
-            android:textSize="14sp"
             android:layout_marginStart="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <CheckBox
             android:id="@+id/cbBotMacd"
-            android:text="Usar MACD"
+            android:text="MACD"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <CheckBox
             android:id="@+id/cbBotBollinger"
-            android:text="Usar Bollinger Bands"
-            android:textSize="16sp"
+            android:text="Bollinger Bands"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -190,11 +154,9 @@
         <!-- Botão para salvar configurações -->
         <Button
             android:id="@+id/btnSaveBotSettings"
-            android:text="Salvar Configurações do Bot"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#002BFF" />
+            android:text="@string/save_settings"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

@@ -36,7 +36,7 @@ class ApiCredentialsActivity : AppCompatActivity() {
         // 1) recupera userId do Intent
         userId = intent.getStringExtra("USER_ID")
             ?: run {
-                Toast.makeText(this, "Usuário inválido", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.invalid_user), Toast.LENGTH_LONG).show()
                 finish()
                 return
             }
@@ -69,11 +69,11 @@ class ApiCredentialsActivity : AppCompatActivity() {
         // 2) validação simples
         when {
             apiKey.isEmpty() -> {
-                etApiKey.error = "API Key é obrigatória"
+                etApiKey.error = getString(R.string.mandatory_api_key)
                 return
             }
             secretKey.isEmpty() -> {
-                etSecretKey.error = "Secret Key é obrigatória"
+                etSecretKey.error = getString(R.string.mandatory_secret_key)
                 return
             }
         }
@@ -92,23 +92,23 @@ class ApiCredentialsActivity : AppCompatActivity() {
                     if (resp.isSuccessful) {
                         Toast.makeText(
                             this@ApiCredentialsActivity,
-                            "Credenciais salvas com sucesso!",
+                            getString(R.string.added_successfully),
                             Toast.LENGTH_LONG
                         ).show()
 
-                        // 👉 abre HomeActivity e limpa toda a pilha para não voltar ao Signup/Login
+                        // Abre HomeActivity
                         val intent = Intent(this@ApiCredentialsActivity, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         // não precisa de finish() aqui, pois o CLEAR_TASK já remove as anteriores
                     } else {
                         val err = resp.errorBody()?.string().orEmpty()
-                        tvStatus.text = "Erro ${resp.code()}: $err"
+                        tvStatus.text = "Error ${resp.code()}: $err"
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    tvStatus.text = "Erro de rede: ${e.localizedMessage}"
+                    tvStatus.text =  getString(R.string.network_error) + "${e.localizedMessage}"
                 }
             }
         }

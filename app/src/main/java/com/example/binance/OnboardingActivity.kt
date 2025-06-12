@@ -18,7 +18,6 @@ class OnboardingActivity : AppCompatActivity() {
     private lateinit var indicator1: View
     private lateinit var indicator2: View
     private lateinit var indicator3: View
-    private lateinit var indicator4: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

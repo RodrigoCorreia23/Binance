@@ -55,7 +55,7 @@ class BotSettingsActivity : AppCompatActivity() {
         val prefs: SharedPreferences = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
         if (userId.isEmpty()) {
-            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.invalid_user), Toast.LENGTH_LONG).show()
             finish()
             return
         }
@@ -93,7 +93,7 @@ class BotSettingsActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<BotStateResponse>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, "Erro ao carregar estado: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@BotSettingsActivity,  getString(R.string.state_error) +": ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -105,7 +105,7 @@ class BotSettingsActivity : AppCompatActivity() {
                 if (response.isSuccessful) switchBotActive.isChecked = false
             }
             override fun onFailure(call: Call<BotStateResponse>, t: Throwable) {
-                Log.e("BotSettingsActivity", "Erro criando estado: ${t.message}")
+                Log.e("BotSettingsActivity", getString(R.string.state_error)+ "${t.message}")
             }
         })
     }
@@ -116,16 +116,16 @@ class BotSettingsActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                val msg = if (isActive) "Bot ativado" else "Bot desativado"
+                val msg = if (isActive) getString(R.string.bot_is_enable) else getString(R.string.bot_is_disable)
                 if (response.isSuccessful) {
                     Toast.makeText(this@BotSettingsActivity, msg, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@BotSettingsActivity, "Erro: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BotSettingsActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                     switchBotActive.isChecked = !isActive
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, "Falha: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BotSettingsActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 switchBotActive.isChecked = !isActive
             }
         })
@@ -137,7 +137,7 @@ class BotSettingsActivity : AppCompatActivity() {
                 response.body()?.let { populateFieldsWithSettings(it) }
             }
             override fun onFailure(call: Call<BotSettingsResponse>, t: Throwable) {
-                Log.e("BotSettingsActivity", "Erro ao carregar settings: ${t.message}")
+                Log.e("BotSettingsActivity", "Settings Error: ${t.message}")
             }
         })
     }
@@ -191,17 +191,17 @@ class BotSettingsActivity : AppCompatActivity() {
                 callToSave.enqueue(object : Callback<BotSettingsResponse> {
                     override fun onResponse(call: Call<BotSettingsResponse>, resp: Response<BotSettingsResponse>) {
                         if (resp.isSuccessful)
-                            Toast.makeText(this@BotSettingsActivity, "Configurações salvas!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@BotSettingsActivity, getString(R.string.saved_settings), Toast.LENGTH_SHORT).show()
                         else
-                            Toast.makeText(this@BotSettingsActivity, "Erro: ${resp.code()}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@BotSettingsActivity, getString(R.string.error) + ":${resp.code()}", Toast.LENGTH_SHORT).show()
                     }
                     override fun onFailure(call: Call<BotSettingsResponse>, t: Throwable) {
-                        Toast.makeText(this@BotSettingsActivity, "Falha: ${t.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@BotSettingsActivity, getString(R.string.failed) + ":${t.message}", Toast.LENGTH_LONG).show()
                     }
                 })
             }
             override fun onFailure(call: Call<BotSettingsResponse>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, "Erro ao verificar: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BotSettingsActivity, getString(R.string.error) + ": ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -213,12 +213,12 @@ class BotSettingsActivity : AppCompatActivity() {
                     val creds = response.body()!!
                     Log.d("BotSettingsActivity", "Credenciais carregadas (API key: ${creds.encryptedApiKey.take(6)}...)")
                 } else {
-                    Toast.makeText(this@BotSettingsActivity, "Erro ao carregar credenciais", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BotSettingsActivity, getString(R.string.credentials_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<UserCredentialsResponse>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, "Falha: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BotSettingsActivity, getString(R.string.failed)+": ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }

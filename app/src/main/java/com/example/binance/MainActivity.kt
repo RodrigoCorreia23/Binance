@@ -62,15 +62,15 @@ class MainActivity : AppCompatActivity() {
             // 1) Validação de frontend
             when {
                 username.isEmpty() || email.isEmpty() || password.isEmpty() -> {
-                    tvStatus.text = "Por favor preencha todos os campos."
+                    tvStatus.text =getString(R.string.fill_all_fields)
                     return@setOnClickListener
                 }
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                    tvStatus.text = "Email inválido."
+                    tvStatus.text = getString(R.string.invalid_email)
                     return@setOnClickListener
                 }
                 password.length < 6 -> {
-                    tvStatus.text = "Senha deve ter pelo menos 6 caracteres."
+                    tvStatus.text = getString(R.string.invalid_password)
                     return@setOnClickListener
                 }
             }
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                         when {
                             response.isSuccessful -> {
                                 // mostra mensagem de boas-vindas
-                                val welcome = "Bem-vindo, $username!"
+                                val welcome = getString(R.string.welcome) +"$username!"
                                 tvStatus.text = welcome
                                 Toast.makeText(
                                     this@MainActivity,
@@ -125,10 +125,10 @@ class MainActivity : AppCompatActivity() {
                                     }
                                     // se não veio nenhum dos dois, mostra mensagem genérica
                                     else {
-                                        tvStatus.text = "Conflito no registro."
+                                        tvStatus.text = getString(R.string.signup_error)
                                     }
                                 } catch (e: Exception) {
-                                    tvStatus.text = "Conflito no registro."
+                                    tvStatus.text = getString(R.string.signup_error)
                                 }
                             }
 
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        tvStatus.text = "Erro de rede: ${e.localizedMessage}"
+                        tvStatus.text = getString(R.string.network_error) +"${e.localizedMessage}"
                     }
                 }
             }
@@ -168,11 +168,11 @@ class MainActivity : AppCompatActivity() {
             try {
                 val resp = RetrofitClient.apiService.ping()
                 withContext(Dispatchers.Main) {
-                    tvStatus.text = "Status do servidor: ${resp.message}"
+                    tvStatus.text = getString(R.string.state_error) +"${resp.message}"
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    tvStatus.text = "Erro ao contactar servidor: ${e.localizedMessage}"
+                    tvStatus.text = getString(R.string.server_error) +":${e.localizedMessage}"
                 }
             }
         }

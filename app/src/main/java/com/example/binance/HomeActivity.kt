@@ -1,16 +1,19 @@
 package com.example.binance
 
-import com.example.binance.BotSettingsActivity
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.binance.network.PublicBinanceApiService
-import com.example.binance.network.BinanceService
-import com.example.binance.network.RetrofitClient
+import com.example.binance.network.ApiClient
 import com.github.mikephil.charting.charts.CandleStickChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.CandleData
@@ -28,10 +31,10 @@ import okhttp3.WebSocketListener
 import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
-import java.util.*
-import android.graphics.Color
-import android.graphics.Paint
+import java.util.Date
+import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 
@@ -43,20 +46,20 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var chart: CandleStickChart
     private lateinit var bottomNav: BottomNavigationView
 
-    // serviços Retrofit
     private lateinit var publicService: PublicBinanceApiService
-    private lateinit var backendService: BinanceService
 
     private val client = OkHttpClient()
     private var ws: WebSocket? = null
     private val entries = mutableListOf<CandleEntry>()
     private val timeLabels = mutableListOf<String>()
 
+    // Mantém o saldo em memória
+    private var usdBalance: BigDecimal = BigDecimal.ZERO
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // binds
         acSymbol        = findViewById(R.id.acSymbol)
         tvUsdBalance    = findViewById(R.id.tvUsdBalance)
         tvCryptoBalance = findViewById(R.id.tvCryptoBalance)
@@ -65,32 +68,28 @@ class HomeActivity : AppCompatActivity() {
         chart           = findViewById(R.id.chart)
         bottomNav       = findViewById(R.id.bottom_nav)
 
-        // Ler Saldo do SharedPreferences
-        val walletPrefs = getSharedPreferences("wallet", MODE_PRIVATE)
-        val balance = walletPrefs.getFloat("balance", 0f)
-
-        // Exibir o saldo em USD
-        tvUsdBalance.text = String.format(Locale.getDefault(), "$%,.2f", balance)
-
         tvCryptoBalance.text = "0.000000"
         tvSymbolLabel.text   = "BTCUSDT"
 
-        // Retrofit para Binance pública
         publicService = Retrofit.Builder()
             .baseUrl("https://api.binance.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PublicBinanceApiService::class.java)
 
-        // Retrofit para seu backend (baseUrl deve terminar em /api/)
-        backendService = RetrofitClient.binanceService
-
-        // lê userId salvo no login
+        // Recupera o userId salvo
         val prefs  = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", "") ?: ""
         Log.d("HomeActivity", "Loaded from prefs → userId='$userId'")
 
-        // popula symbols e inicia gráfico
+        // Carrega e exibe o saldo
+        if (userId.isNotEmpty()) {
+            loadBalance(userId)
+        } else {
+            Log.e("HomeActivity", "UserId está vazio!")
+        }
+
+        // Popula symbols e inicia gráfico
         lifecycleScope.launch {
             val symbols = withContext(Dispatchers.IO) {
                 publicService.getAllSymbols().map { it.symbol }
@@ -114,7 +113,7 @@ class HomeActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@HomeActivity,
-                            "Símbolo inválido",
+                            getString(R.string.invalid_symbol),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -125,48 +124,61 @@ class HomeActivity : AppCompatActivity() {
             switchSymbol("BTCUSDT")
         }
 
-        // botão Add Funds
         btnAddFunds.setOnClickListener {
             startActivity(Intent(this, AddFundsActivity::class.java))
         }
 
-        // configura clique dos itens do BottomNavigationView
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> {
-                    // já está na Home, nada a fazer
-                    true
-                }
+                R.id.nav_home -> true
                 R.id.nav_refresh -> {
-                    // recarregar dados para o símbolo atual
-                    val currentSym = tvSymbolLabel.text.toString()
-                    if (currentSym.isNotBlank()) {
-                        switchSymbol(currentSym)
-                    }
+                    startActivity(Intent(this@HomeActivity, TradeHistoryActivity::class.java))
                     true
                 }
                 R.id.nav_profile -> {
-                    // abre ProfileActivity
                     startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
                     true
                 }
                 R.id.nav_settings -> {
-                    // caso tenha SettingsActivity, abra aqui. Senão, apenas um Toast.
                     startActivity(Intent(this@HomeActivity, BotSettingsActivity::class.java))
                     true
                 }
                 else -> false
             }
         }
-
-        // item “Home” selecionado por padrão
         bottomNav.selectedItemId = R.id.nav_home
     }
 
-    private fun updateLocalBalance() {
-        val walletPrefs = getSharedPreferences("wallet", MODE_PRIVATE)
-        val fakeBalance = walletPrefs.getFloat("balance", 0f)
-        tvUsdBalance.text = String.format("€%.2f", fakeBalance)
+    private fun loadBalance(userId: String) {
+        Log.d("HomeActivity", "Iniciando loadBalance para userId: '$userId'")
+        lifecycleScope.launch {
+            val balanceFloat: Float? = ApiClient.getUserBalance(userId)
+            Log.d("HomeActivity", "Balance retornado: $balanceFloat")
+
+            if (balanceFloat != null) {
+                usdBalance = BigDecimal.valueOf(balanceFloat.toDouble())
+                tvUsdBalance.text = String.format(Locale.getDefault(), "€%,.2f", usdBalance)
+            } else {
+                Toast.makeText(
+                    this@HomeActivity,
+                    getString(R.string.error_balance),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    // Exemplo de como disparar uma compra manual
+    private fun attemptBuy(amount: BigDecimal) {
+        if (usdBalance < amount) {
+            Toast.makeText(this, "Saldo insuficiente", Toast.LENGTH_SHORT).show()
+            Log.e("HomeActivity", "Tentativa de compra: saldo insuficiente (need=$amount, have=$usdBalance)")
+            return
+        }
+        // Chamar endpoint de compra aqui...
+        usdBalance = usdBalance.subtract(amount)
+        tvUsdBalance.text = String.format(Locale.getDefault(), "€%,.2f", usdBalance)
+        Log.i("HomeActivity", "Compra realizada: amount=$amount; novo saldo=$usdBalance")
     }
 
     private fun switchSymbol(symbol: String) {
@@ -198,9 +210,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         runOnUiThread {
-            if (entries.isNotEmpty()) {
-                tvCryptoBalance.text = String.format(Locale.getDefault(), "%,.6f", entries.last().close)
-            }
+            tvCryptoBalance.text = String.format(Locale.getDefault(), "%,.6f", entries.last().close)
         }
     }
 
@@ -208,9 +218,9 @@ class HomeActivity : AppCompatActivity() {
         if (entries.isEmpty()) return
         val ds = CandleDataSet(entries, "").apply {
             setDrawValues(false)
-            increasingColor = Color.GREEN
+            increasingColor = android.graphics.Color.GREEN
             increasingPaintStyle = Paint.Style.FILL
-            decreasingColor = Color.RED
+            decreasingColor = android.graphics.Color.RED
             decreasingPaintStyle = Paint.Style.FILL
             shadowColorSameAsCandle = true
         }
@@ -262,7 +272,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateLocalBalance()
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", "") ?: ""
+        if (userId.isNotEmpty()) {
+            loadBalance(userId)
+        }
     }
 
     override fun onDestroy() {

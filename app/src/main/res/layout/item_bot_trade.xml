@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@android:color/white">
+
+    <!-- Coluna 1: Ativo -->
+    <TextView
+            android:id="@+id/tvSymbol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="BTCUSDT"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#000000" />
+
+    <!-- Coluna 2: Tipo -->
+    <TextView
+            android:id="@+id/tvSide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="COMPRA"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#2196F3" />
+
+    <!-- Coluna 3: Data -->
+    <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="11/06/2025"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="#000000" />
+
+    <!-- Coluna 4: Valor -->
+    <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="92.85"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="#000000" />
+
+    <!-- Coluna 5: L/P -->
+    <TextView
+            android:id="@+id/tvProfit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+5.23"
+            android:textSize="13sp"
+            android:gravity="end"
+            android:textColor="#4CAF50" />
+
+</LinearLayout>

@@ -28,11 +28,13 @@ object ApiClient {
 
     // 3) Instância Retrofit configurada
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)                               // tem de terminar em "/"
+        .baseUrl(BASE_URL)
         .client(httpClient)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    val apiService: BinanceService = retrofit.create(BinanceService::class.java)
 
     // 4) Serviço Retrofit único
     val service: BinanceService =
@@ -68,6 +70,11 @@ object ApiClient {
             }
         }
     }
+
+    fun <T> createService(serviceClass: Class<T>): T {
+        return retrofit.create(serviceClass)
+    }
+
 
     suspend fun getUserBalance(userId: String): Float? {
         return withContext(Dispatchers.IO) {

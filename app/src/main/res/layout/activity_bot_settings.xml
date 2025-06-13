@@ -41,7 +41,7 @@
 
         <!-- Quantidade por Trade -->
         <TextView
-            android:text="@string/trade_quantity"
+            android:text="@string/trade_value"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -156,9 +156,7 @@
             android:id="@+id/btnSaveBotSettings"
             android:text="@string/save_settings"
             android:layout_marginTop="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:backgroundTint="#002BFF"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

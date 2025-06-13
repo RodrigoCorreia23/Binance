@@ -140,7 +140,7 @@
             android:id="@+id/btnChangeLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escolher Idioma"
+            android:text="@string/choose_language"
             android:layout_marginTop="24dp"
             android:backgroundTint="#002BFF"/>
     </LinearLayout>

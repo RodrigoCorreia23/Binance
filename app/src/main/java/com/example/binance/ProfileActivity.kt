@@ -22,7 +22,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import androidx.appcompat.app.AppCompatDelegate
 
-
 class ProfileActivity : AppCompatActivity() {
 
     // 1. Views do layout
@@ -30,10 +29,14 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tvUserName: TextView
     private lateinit var tvUserEmail: TextView
 
+
     // Label e botão “change” de Personal Details
     private lateinit var tvLabelPersonalDetails: TextView
     private lateinit var tvChangePersonalDetails: TextView
 
+    // 2. CardViews “botões” de FAQ, Help, Language
+    private lateinit var cardFaq: CardView
+    private lateinit var cardHelp: CardView
     private lateinit var cardLanguage: CardView
 
     // 3. Launcher para escolher avatar da galeria
@@ -57,7 +60,9 @@ class ProfileActivity : AppCompatActivity() {
         tvLabelPersonalDetails   = findViewById(R.id.tvLabelPersonalDetails)
         tvChangePersonalDetails  = findViewById(R.id.tvChangePersonalDetails)
 
-        // CardViews para Language
+        // Vincular CardViews
+        cardFaq      = findViewById(R.id.cardFaq)
+        cardHelp     = findViewById(R.id.cardHelp)
         cardLanguage = findViewById(R.id.cardLanguage)
 
         // Inicializar SharedPreferences
@@ -71,26 +76,6 @@ class ProfileActivity : AppCompatActivity() {
             tvUserName.text = savedUsername
         } else {
             tvUserName.text = "..."
-        }
-
-        // Alterar Tema
-        val switchTheme = findViewById<Switch>(R.id.switchTheme)
-        // Ler o tema atual do SharedPreferences (default: false)
-        val isDarkMode = prefs.getBoolean("IS_DARK_MODE", false)
-        switchTheme.isChecked = isDarkMode
-
-        // Aplicar o tema ao abrir a app
-        AppCompatDelegate.setDefaultNightMode(
-            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
-        )
-
-        switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean("IS_DARK_MODE", isChecked).apply()
-            AppCompatDelegate.setDefaultNightMode(
-                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
-            )
         }
 
         // Registrar launcher para escolher avatar da galeria
@@ -111,6 +96,12 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         // Configurar cliques nos CardViews
+        cardFaq.setOnClickListener {
+            Toast.makeText(this, "Abrir FAQ (implementar depois)", Toast.LENGTH_SHORT).show()
+        }
+        cardHelp.setOnClickListener {
+            Toast.makeText(this, "Abrir Help (implementar depois)", Toast.LENGTH_SHORT).show()
+        }
         cardLanguage.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
@@ -136,6 +127,21 @@ class ProfileActivity : AppCompatActivity() {
             finish()
             return
         }
+
+        val switchTheme = findViewById<Switch>(R.id.switchTheme)
+
+        // Verifica o tema salvo
+        val isDarkMode = prefs.getBoolean("DARK_MODE", false)
+        switchTheme.isChecked = isDarkMode
+
+        // Define comportamento do switch
+        switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            )
+            prefs.edit().putBoolean("DARK_MODE", isChecked).apply()
+        }
+
 
     }
 

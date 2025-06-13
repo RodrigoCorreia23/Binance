@@ -1,11 +1,13 @@
 package com.example.binance
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +33,8 @@ class BotSettingsActivity : AppCompatActivity() {
     private lateinit var botSettingsService: BotSettingsApiService
     private lateinit var credentialsService: CredentialsApiService
 
+    private lateinit var bottomNav: BottomNavigationView
+
     private var userId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +55,7 @@ class BotSettingsActivity : AppCompatActivity() {
         cbMacd             = findViewById(R.id.cbBotMacd)
         cbBollinger        = findViewById(R.id.cbBotBollinger)
         btnSaveBotSettings = findViewById(R.id.btnSaveBotSettings)
+        bottomNav          = findViewById(R.id.bottom_nav)
 
         val prefs: SharedPreferences = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
@@ -81,6 +86,37 @@ class BotSettingsActivity : AppCompatActivity() {
         btnSaveBotSettings.setOnClickListener {
             saveBotSettings()
         }
+
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    if (this !is HomeActivity) {
+                        startActivity(Intent(this, HomeActivity::class.java))
+                    }
+                    true
+                }
+                R.id.nav_refresh -> {
+                    if (this !is TradeHistoryActivity) {
+                        startActivity(Intent(this, TradeHistoryActivity::class.java))
+                    }
+                    true
+                }
+                R.id.nav_profile -> {
+                    if (this !is ProfileActivity) {
+                        startActivity(Intent(this, ProfileActivity::class.java))
+                    }
+                    true
+                }
+                R.id.nav_settings -> {
+                    if (this !is BotSettingsActivity) {
+                        startActivity(Intent(this, BotSettingsActivity::class.java))
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+        bottomNav.selectedItemId = R.id.nav_settings
     }
 
     private fun loadBotState() {

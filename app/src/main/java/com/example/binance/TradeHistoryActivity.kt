@@ -1,31 +1,24 @@
 package com.example.binance
 
-import android.content.Context
-import android.graphics.Color
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.binance.adapter.BotTradeAdapter
-import com.example.binance.databinding.ActivityTradeHistoryBinding
-import com.example.binance.models.BotTrade
-import com.example.binance.models.Trade
 import com.example.binance.network.ApiClient
 import com.example.binance.network.BinanceService
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.util.Locale
-import java.util.UUID
+import java.util.*
 
 class TradeHistoryActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BotTradeAdapter
-    private val trades = mutableListOf<BotTrade>()
+    private val trades = mutableListOf<com.example.binance.models.BotTrade>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +30,30 @@ class TradeHistoryActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         fetchTradeHistory()
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    true
+                }
+                R.id.nav_refresh -> {
+                    // Já estás nesta página
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, BotSettingsActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+        bottomNav.selectedItemId = R.id.nav_refresh
     }
 
     private fun fetchTradeHistory() {

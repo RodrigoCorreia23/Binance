@@ -168,7 +168,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Exemplo de como disparar uma compra manual
     private fun attemptBuy(amount: BigDecimal) {
         if (usdBalance < amount) {
             Toast.makeText(this, "Saldo insuficiente", Toast.LENGTH_SHORT).show()

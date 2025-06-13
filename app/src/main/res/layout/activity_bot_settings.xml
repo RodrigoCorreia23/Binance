@@ -1,152 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!-- Switch para ligar/desligar o bot -->
         <Switch
-                android:id="@+id/switchBotSettingsActive"
-                android:text="@string/bot_is_enable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/switchBotSettingsActive"
+            android:text="@string/bot_is_enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+        <!-- Spinner: Par de Trading -->
         <TextView
-                android:text="@string/trade_pair"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="@string/trade_pair"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <Spinner
-                android:id="@+id/spinnerBotTradingPair"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/spinnerBotTradingPair"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Spinner: Tipo de Ordem -->
         <TextView
-                android:text="@string/order_type"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="Tipo de Ordem:"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <Spinner
-                android:id="@+id/spinnerBotOrderType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/spinnerBotOrderType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Quantidade por Trade -->
         <TextView
-                android:text="@string/trade_value"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="@string/trade_value"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotTradeAmount"
-                android:hint="ex: 50.00"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotTradeAmount"
+            android:hint="ex: 0.001"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Limit Price -->
         <TextView
-                android:text="@string/price_limit"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="@string/price_limit"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotLimitPrice"
-                android:hint="ex: 27000.00"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotLimitPrice"
+            android:hint="ex: 27000.00"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Stop Price -->
         <TextView
-                android:text="@string/stop_price"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="@string/stop_price"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotStopPrice"
-                android:hint="ex: 26500.00"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotStopPrice"
+            android:hint="ex: 26500.00"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Trailing Delta -->
         <TextView
-                android:text="@string/trailing_delta"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="@string/trailing_delta"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotTrailingDelta"
-                android:hint="ex: 100.00"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotTrailingDelta"
+            android:hint="ex: 100.00"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Stop-Loss / Take-Profit -->
         <TextView
-                android:text="@string/stop_loss_perc"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="Stop-Loss (%):"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotStopLossPerc"
-                android:hint="ex: 2.0"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotStopLossPerc"
+            android:hint="ex: 2.0"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
-                android:text="@string/take_profit_perc"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="Take-Profit (%):"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotTakeProfitPerc"
-                android:hint="ex: 4.0"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotTakeProfitPerc"
+            android:hint="ex: 4.0"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <!-- Indicadores -->
         <TextView
-                android:text="@string/indicators"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:text="@string/indicators"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <CheckBox
-                android:id="@+id/cbBotRsi"
-                android:text="RSI"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/cbBotRsi"
+            android:text="RSI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
-                android:id="@+id/etBotRsiThreshold"
-                android:hint="RSI Threshold (ex: 30)"
-                android:inputType="number"
-                android:layout_marginStart="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/etBotRsiThreshold"
+            android:hint="RSI Threshold (ex: 30)"
+            android:inputType="number"
+            android:layout_marginStart="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <CheckBox
-                android:id="@+id/cbBotMacd"
-                android:text="MACD"
-                android:layout_marginTop="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/cbBotMacd"
+            android:text="MACD"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <CheckBox
-                android:id="@+id/cbBotBollinger"
-                android:text="Bollinger Bands"
-                android:layout_marginTop="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/cbBotBollinger"
+            android:text="Bollinger Bands"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+        <!-- Botão para salvar configurações -->
         <Button
-                android:id="@+id/btnSaveBotSettings"
-                android:text="@string/save_settings"
-                android:layout_marginTop="24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/btnSaveBotSettings"
+            android:text="@string/save_settings"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

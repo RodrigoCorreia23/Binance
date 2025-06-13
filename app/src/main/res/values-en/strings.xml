@@ -8,20 +8,20 @@
     <string name="total">Total</string>
     <string name="proceed_payment">Pay</string>
     <string name="id_not_found">Error: User ID not found</string>
-    <string name="value_bigger_than_zero">Value must be greater than zero</string>
+    <string name="value_bigger_than_zero">The value must be bigger than zero</string>
     <string name="card_selected">Card Selected</string>
     <string name="bank_selected">Bank Selected</string>
     <string name="paypal_selected">Paypal Selected</string>
     <string name="choose_payment_method">Choose a payment method</string>
-    <string name="added_successfully">Added successfully</string>
+    <string name="added_successfully">Added Successfully</string>
     <string name="error_adding_funds">Error adding funds. Try again.</string>
 
     <!--API Credentials Activity-->
-    <string name="api_title">Enter your Binance API credentials securely</string>
+    <string name="api_title">Enter your Binance API credentials Securely</string>
     <string name="api_key">API Key</string>
     <string name="secret_key">Secret Key</string>
     <string name="show">Show</string>
-    <string name="api_warning">Never share your Secret Key. We do not store these credentials on your device.</string>
+    <string name="api_warning">Never share your Secret Key with anyone. We do not store these credentials on your device.</string>
     <string name="save_continue">Save and Continue</string>
     <string name="invalid_user">Invalid User</string>
     <string name="mandatory_api_key">API Key is mandatory</string>
@@ -33,24 +33,22 @@
     <string name="add_funds">Add Funds</string>
     <string name="payment">Payment</string>
     <string name="error_balance">Error loading your balance</string>
-    <string name="invalid_symbol">Invalid symbol</string>
+    <string name="invalid_symbol">Invalid Symbol</string>
 
     <!-- Bot Settings activity-->
-    <string name="state_error">Error loading state</string>
+    <string name="state_error">Error loading the state</string>
     <string name="bot_is_enable">Bot is enabled</string>
     <string name="bot_is_disable">Bot is disabled</string>
     <string name="error">Error</string>
     <string name="failed">Failed</string>
-    <string name="saved_settings">Settings saved</string>
-    <string name="credentials_error">Error in credentials</string>
+    <string name="saved_settings">Settings are saved</string>
+    <string name="credentials_error">Error in the credentials</string>
     <string name="trade_pair">Trading Pair:</string>
     <string name="order_type">Order Type:</string>
-    <string name="trade_value">Trade Value (USDT)</string>
+    <string name="trade_quantity">Trade Quantity:</string>
     <string name="price_limit">Price Limit (if applicable):</string>
     <string name="stop_price">Stop Price (if applicable):</string>
-    <string name="trailing_delta">Trailing Delta (if applicable):</string>
-    <string name="stop_loss_perc">Stop-Loss (%):</string>
-    <string name="take_profit_perc">Take-Profit (%):</string>
+    <string name="trailing_delta">"Trailing Delta (if applicable):"</string>
     <string name="indicators">Technical Indicators:</string>
     <string name="save_settings">Save Bot Settings</string>
 
@@ -58,18 +56,18 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Log In</string>
-    <string name="forgot_password">Forgot password?</string>
+    <string name="forgot_password">Forgot your password?</string>
     <string name="fill_all_fields">Please fill in all fields</string>
-    <string name="invalid_email">Invalid email</string>
-    <string name="invalid_password">Password must be at least 6 characters</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Passwords must have at least 6 characters</string>
     <string name="welcome">Welcome</string>
-    <string name="signup_error">Error signing up</string>
-    <string name="server_error">Server error</string>
+    <string name="signup_error">There was an error in the registration</string>
+    <string name="server_error">Server Error</string>
 
     <string name="signup_title">Sign Up</string>
-    <string name="login_text">Log In</string>
+    <string name="login_text">Login</string>
     <string name="name">Name</string>
-    <string name="newsletter">Receive newsletter and promotions?</string>
+    <string name="newsletter">I would like to receive your newsletter and other promotional information.</string>
     <string name="signup">Sign Up</string>
     <string name="status_loading">Loading…</string>
 
@@ -86,32 +84,39 @@
     <string name="help">Help</string>
     <string name="language">Language</string>
     <string name="theme">Theme</string>
-    <string name="loading_profile">Loading…</string>
+    <string name="loading_profile">Loading ...</string>
 
     <!--Edit Profile Dialog-->
     <string name="username">Username</string>
     <string name="new_username">New Username</string>
-    <string name="new_email">New Email</string>
+    <string name="new_email">New e-mail</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="profile_updated_successfully">Updated successfully</string>
     <string name="error_username_required">Enter a username</string>
     <string name="error_email_required">Enter an email</string>
     <string name="error_invalid_email">Invalid email</string>
-    <string name="error_update_conflict">Update failure:</string>
-    <string name="error_getting_profile">Error getting profile</string>
+    <string name="error_update_conflict">Update Failure:</string>
+    <string name="error_getting_profile">Error getting the profile</string>
 
-    <!--OnBoarding Page-->
-    <string name="onboarding_welcome_title">Welcome to the world of Cryptocurrencies!</string>
-    <string name="onboarding_welcome_desc">Cryptocurrencies are decentralized digital currencies secured by blockchain.</string>
+    <!--OnBoarding Page (Tutorials)-->
+    <string name="onboarding_welcome_title">Welcome to the world of Cryptocurrencies, User!</string>
+    <string name="onboarding_welcome_desc">Cryptocurrencies are decentralized digital currencies that use blockchain technology to ensure security and transparency. They allow global transactions without intermediaries.</string>
+
     <string name="onboarding_blockchain_title">What is Blockchain?</string>
-    <string name="onboarding_blockchain_desc">Blockchain is an immutable, decentralized ledger.</string>
-    <string name="onboarding_crypto_title">Most Popular Cryptocurrencies</string>
-    <string name="onboarding_crypto_desc_detailed">• Bitcoin (BTC)\n\n• Ethereum (ETH)\n\n• Binance Coin (BNB)</string>
+    <string name="onboarding_blockchain_desc">Blockchain is the technology behind cryptocurrencies. It is a decentralized digital ledger where all transactions are recorded immutably.</string>
+
+    <string name="onboarding_crypto_title">Most Well-Known Cryptocurrencies</string>
+    <string name="onboarding_crypto_desc_detailed">• Bitcoin (BTC): The first and most famous cryptocurrency\n\n• Ethereum (ETH): A platform for creating smart contracts and decentralized applications\n\n• Other Coins: There are thousands of cryptocurrencies, such as Binance Coin (BNB), Cardano (ADA), Solana (SOL), each with their own characteristics and uses.</string>
+
     <string name="onboarding_security_title">Security and Precautions</string>
-    <string name="onboarding_security_desc_detailed">• Use secure wallets\n• Never share private keys\n• Research before investing</string>
+    <string name="onboarding_security_desc_detailed">When using cryptocurrencies, it is essential to follow best practices:\n\n• Use secure wallets to store your coins\n• Never share your private keys\n• Beware of scams and promises of guaranteed profits\n• Research before investing in any project</string>
+
 
     <string name="back">Back</string>
     <string name="next">Next</string>
-    <string name="finish">Finish</string>
+    <string name="finish">End</string>
+
+
+
 </resources>

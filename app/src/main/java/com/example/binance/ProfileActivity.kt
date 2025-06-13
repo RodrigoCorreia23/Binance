@@ -20,6 +20,7 @@ import com.example.binance.network.UpdateProfileRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.appcompat.app.AppCompatDelegate
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -27,6 +28,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var ivAvatar: ImageView
     private lateinit var tvUserName: TextView
     private lateinit var tvUserEmail: TextView
+
 
     // Label e botão “change” de Personal Details
     private lateinit var tvLabelPersonalDetails: TextView
@@ -125,6 +127,21 @@ class ProfileActivity : AppCompatActivity() {
             finish()
             return
         }
+
+        val switchTheme = findViewById<Switch>(R.id.switchTheme)
+
+        // Verifica o tema salvo
+        val isDarkMode = prefs.getBoolean("DARK_MODE", false)
+        switchTheme.isChecked = isDarkMode
+
+        // Define comportamento do switch
+        switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            )
+            prefs.edit().putBoolean("DARK_MODE", isChecked).apply()
+        }
+
 
     }
 

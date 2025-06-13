@@ -4,8 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F8F9FA">
+        android:layout_height="match_parent">
 
     <!-- Toolbar with back arrow and title -->
     <LinearLayout
@@ -25,11 +24,12 @@
 
         <TextView
                 android:text="@string/payment"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
-                android:textColor="#1A1A1A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+        <View android:layout_width="match_parent" android:layout_height="24dp" />
     </LinearLayout>
 
     <!-- Content area -->
@@ -54,7 +54,6 @@
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
                 app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@android:color/white"
                 android:layout_marginBottom="32dp">
 
             <RadioGroup
@@ -62,7 +61,8 @@
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                 <RadioButton
                         android:id="@+id/rbCard"
@@ -101,8 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardCornerRadius="12dp">
 
             <EditText
                     android:id="@+id/etTotal"
@@ -129,11 +128,12 @@
                 android:text="@string/proceed_payment"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/button_rounded"
-                android:textColor="@android:color/white"
+                android:backgroundTint="#002BFF"
+                android:layout_marginBottom="24dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textAllCaps="false"
                 android:elevation="2dp"/>
+
     </LinearLayout>
 </LinearLayout>

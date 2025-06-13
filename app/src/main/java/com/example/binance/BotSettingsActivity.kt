@@ -93,7 +93,9 @@ class BotSettingsActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<BotStateResponse>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity,  getString(R.string.state_error) +": ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@BotSettingsActivity,
+                    getString(R.string.state_error) + ": ${t.message}",
+                    Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -105,7 +107,7 @@ class BotSettingsActivity : AppCompatActivity() {
                 if (response.isSuccessful) switchBotActive.isChecked = false
             }
             override fun onFailure(call: Call<BotStateResponse>, t: Throwable) {
-                Log.e("BotSettingsActivity", getString(R.string.state_error)+ "${t.message}")
+                Log.e("BotSettingsActivity", getString(R.string.state_error) + ": ${t.message}")
             }
         })
     }
@@ -116,16 +118,19 @@ class BotSettingsActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                val msg = if (isActive) getString(R.string.bot_is_enable) else getString(R.string.bot_is_disable)
+                val msg = if (isActive) getString(R.string.bot_is_enable)
+                else getString(R.string.bot_is_disable)
                 if (response.isSuccessful) {
                     Toast.makeText(this@BotSettingsActivity, msg, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@BotSettingsActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BotSettingsActivity,
+                        "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                     switchBotActive.isChecked = !isActive
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BotSettingsActivity,
+                    "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 switchBotActive.isChecked = !isActive
             }
         })
@@ -144,17 +149,15 @@ class BotSettingsActivity : AppCompatActivity() {
 
     private fun populateFieldsWithSettings(s: BotSettingsResponse) {
         (spinnerTradingPair.adapter as ArrayAdapter<String>).let {
-            val pos = it.getPosition(s.tradingPair)
-            if (pos >= 0) spinnerTradingPair.setSelection(pos)
+            it.getPosition(s.tradingPair).takeIf { pos -> pos >= 0 }?.let { spinnerTradingPair.setSelection(it) }
         }
         (spinnerOrderType.adapter as ArrayAdapter<String>).let {
-            val pos = it.getPosition(s.orderType)
-            if (pos >= 0) spinnerOrderType.setSelection(pos)
+            it.getPosition(s.orderType).takeIf { pos -> pos >= 0 }?.let { spinnerOrderType.setSelection(it) }
         }
 
         etTradeAmount.setText(s.tradeAmount.toString())
-        s.limitPrice?.let { etLimitPrice.setText(it.toString()) }
-        s.stopPrice?.let { etStopPrice.setText(it.toString()) }
+        s.limitPrice?.let    { etLimitPrice.setText(it.toString()) }
+        s.stopPrice?.let     { etStopPrice.setText(it.toString()) }
         s.trailingDelta?.let { etTrailingDelta.setText(it.toString()) }
         etStopLossPerc.setText(s.stopLossPerc.toString())
         etTakeProfitPerc.setText(s.takeProfitPerc.toString())
@@ -165,20 +168,26 @@ class BotSettingsActivity : AppCompatActivity() {
     }
 
     private fun saveBotSettings() {
+        val spend = etTradeAmount.text.toString().toDoubleOrNull()
+        if (spend == null || spend <= 0.0) {
+            etTradeAmount.error = "Insira um valor válido em USDT"
+            return
+        }
+
         val req = BotSettingsRequest(
-            userId = userId,
-            tradingPair = spinnerTradingPair.selectedItem.toString(),
-            orderType = spinnerOrderType.selectedItem.toString(),
-            tradeAmount = etTradeAmount.text.toString().toDoubleOrNull() ?: return,
-            limitPrice = etLimitPrice.text.toString().toDoubleOrNull(),
-            stopPrice = etStopPrice.text.toString().toDoubleOrNull(),
-            trailingDelta = etTrailingDelta.text.toString().toDoubleOrNull(),
-            stopLossPerc = etStopLossPerc.text.toString().toDoubleOrNull() ?: return,
-            takeProfitPerc = etTakeProfitPerc.text.toString().toDoubleOrNull() ?: return,
-            rsiEnabled = cbRsi.isChecked,
-            rsiThreshold = etRsiThreshold.text.toString().toIntOrNull(),
-            macdEnabled = cbMacd.isChecked,
-            movingAvgEnabled = cbBollinger.isChecked
+            userId          = userId,
+            tradingPair     = spinnerTradingPair.selectedItem.toString(),
+            orderType       = spinnerOrderType.selectedItem.toString(),
+            tradeAmount     = spend,
+            limitPrice      = etLimitPrice.text.toString().toDoubleOrNull(),
+            stopPrice       = etStopPrice.text.toString().toDoubleOrNull(),
+            trailingDelta   = etTrailingDelta.text.toString().toDoubleOrNull(),
+            stopLossPerc    = etStopLossPerc.text.toString().toDoubleOrNull() ?: return,
+            takeProfitPerc  = etTakeProfitPerc.text.toString().toDoubleOrNull() ?: return,
+            rsiEnabled      = cbRsi.isChecked,
+            rsiThreshold    = etRsiThreshold.text.toString().toIntOrNull(),
+            macdEnabled     = cbMacd.isChecked,
+            movingAvgEnabled= cbBollinger.isChecked
         )
 
         botSettingsService.getBotSettings(userId).enqueue(object : Callback<BotSettingsResponse> {
@@ -191,17 +200,21 @@ class BotSettingsActivity : AppCompatActivity() {
                 callToSave.enqueue(object : Callback<BotSettingsResponse> {
                     override fun onResponse(call: Call<BotSettingsResponse>, resp: Response<BotSettingsResponse>) {
                         if (resp.isSuccessful)
-                            Toast.makeText(this@BotSettingsActivity, getString(R.string.saved_settings), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@BotSettingsActivity,
+                                getString(R.string.saved_settings), Toast.LENGTH_SHORT).show()
                         else
-                            Toast.makeText(this@BotSettingsActivity, getString(R.string.error) + ":${resp.code()}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@BotSettingsActivity,
+                                getString(R.string.error) + ": ${resp.code()}", Toast.LENGTH_SHORT).show()
                     }
                     override fun onFailure(call: Call<BotSettingsResponse>, t: Throwable) {
-                        Toast.makeText(this@BotSettingsActivity, getString(R.string.failed) + ":${t.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@BotSettingsActivity,
+                            getString(R.string.failed) + ": ${t.message}", Toast.LENGTH_LONG).show()
                     }
                 })
             }
             override fun onFailure(call: Call<BotSettingsResponse>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, getString(R.string.error) + ": ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BotSettingsActivity,
+                    getString(R.string.error) + ": ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -213,12 +226,13 @@ class BotSettingsActivity : AppCompatActivity() {
                     val creds = response.body()!!
                     Log.d("BotSettingsActivity", "Credenciais carregadas (API key: ${creds.encryptedApiKey.take(6)}...)")
                 } else {
-                    Toast.makeText(this@BotSettingsActivity, getString(R.string.credentials_error), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BotSettingsActivity,
+                        getString(R.string.credentials_error), Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<UserCredentialsResponse>, t: Throwable) {
-                Toast.makeText(this@BotSettingsActivity, getString(R.string.failed)+": ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BotSettingsActivity,
+                    getString(R.string.failed) + ": ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }

@@ -41,7 +41,6 @@ class LoginActivity : AppCompatActivity() {
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
             title = "Log In"
         }

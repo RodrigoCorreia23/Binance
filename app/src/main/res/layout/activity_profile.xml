@@ -241,7 +241,49 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 4.4. CardView “Theme” -->
+        <!-- 4.4. CardView “Tutoriais” -->
+        <androidx.cardview.widget.CardView
+                android:id="@+id/cardTutorials"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintTop_toBottomOf="@id/cardTheme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                <TextView
+                        android:id="@+id/tvTutorials"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tutorials"
+                        android:textSize="16sp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                <ImageView
+                        android:id="@+id/ivTutorialsArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_arrow_right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:contentDescription="Ícone de seta" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 4.5. CardView “Theme” -->
         <androidx.cardview.widget.CardView
                 android:id="@+id/cardTheme"
                 android:layout_width="0dp"

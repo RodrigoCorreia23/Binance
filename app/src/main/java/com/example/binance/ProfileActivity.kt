@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.example.binance.models.UserProfile
-import com.example.binance.network.BinanceService
 import com.example.binance.network.RetrofitClient
 import com.example.binance.network.UpdateProfileRequest
 import retrofit2.Call
@@ -38,6 +36,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var cardFaq: CardView
     private lateinit var cardHelp: CardView
     private lateinit var cardLanguage: CardView
+    private lateinit var cardTutorials: CardView
 
     // 3. Launcher para escolher avatar da galeria
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
@@ -60,10 +59,12 @@ class ProfileActivity : AppCompatActivity() {
         tvLabelPersonalDetails   = findViewById(R.id.tvLabelPersonalDetails)
         tvChangePersonalDetails  = findViewById(R.id.tvChangePersonalDetails)
 
+
         // Vincular CardViews
         cardFaq      = findViewById(R.id.cardFaq)
         cardHelp     = findViewById(R.id.cardHelp)
         cardLanguage = findViewById(R.id.cardLanguage)
+        cardTutorials = findViewById(R.id.cardTutorials)
 
         // Inicializar SharedPreferences
         prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
@@ -104,6 +105,9 @@ class ProfileActivity : AppCompatActivity() {
         }
         cardLanguage.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        cardTutorials.setOnClickListener {
+            startActivity(Intent(this, OnboardingActivity::class.java))
         }
 
         // Configurar clique em “change” para abrir diálogo de edição

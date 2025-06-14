@@ -127,7 +127,6 @@
 
         <View android:layout_width="match_parent" android:layout_height="16dp" />
 
-        <!-- Status do servidor -->
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"

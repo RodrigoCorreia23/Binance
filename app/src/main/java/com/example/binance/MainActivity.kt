@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             response.code() == 409 -> {
-                                // conflito de unicidade: parseia o JSON e seta erro nos campos
+                                // conflito de unicidade (email ou username já existe)
                                 val errBody = response.errorBody()?.string().orEmpty()
                                 try {
                                     val obj = JSONObject(errBody)
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         tvLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
-        fetchPingStatus()
+        //fetchPingStatus()
     }
 
     private fun togglePasswordVisibility() {
@@ -163,6 +163,7 @@ class MainActivity : AppCompatActivity() {
         etPassword.setSelection(etPassword.text.length)
     }
 
+    /* Função para testar a conexão com o servidor
     private fun fetchPingStatus() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -176,5 +177,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+    }*/
 }

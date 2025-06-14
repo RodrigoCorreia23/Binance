@@ -45,12 +45,14 @@
     <string name="credentials_error">Erro nas credenciais</string>
     <string name="trade_pair">Par de Trading:</string>
     <string name="order_type">Tipo de Ordem:</string>
+    <string name="trade_quantity">Quantidade:</string>
     <string name="trade_value">Valor por Trade (USDT)</string>
     <string name="price_limit">Preço Limite (se aplicável):</string>
     <string name="stop_price">Preço Stop (se aplicável):</string>
     <string name="trailing_delta">Trailing Delta (se aplicável):</string>
     <string name="stop_loss_perc">Stop-Loss (%):</string>
     <string name="take_profit_perc">Take-Profit (%):</string>
+
     <string name="indicators">Indicadores Técnicos:</string>
     <string name="save_settings">Guardar Configurações do Bot</string>
 
@@ -89,7 +91,9 @@
     <string name="language">Idioma</string>
     <string name="language_available">Idiomas Disponíveis</string>
     <string name="theme">Tema</string>
+    <string name="dark_theme">Tema Escuro</string>
     <string name="loading_profile">A Carregar…</string>
+    <string name="tutorials">Tutorial</string>
 
     <!--Edit Profile Dialog-->
     <string name="username">Username</string>

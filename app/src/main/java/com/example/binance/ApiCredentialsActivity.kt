@@ -76,6 +76,7 @@ class ApiCredentialsActivity : AppCompatActivity() {
                 etSecretKey.error = getString(R.string.mandatory_secret_key)
                 return
             }
+
         }
 
         tvStatus.text = ""
@@ -96,11 +97,22 @@ class ApiCredentialsActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
 
-                        // Abre HomeActivity
-                        val intent = Intent(this@ApiCredentialsActivity, HomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        // não precisa de finish() aqui, pois o CLEAR_TASK já remove as anteriores
+                        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+                        val hasCompletedOnboarding = prefs.getBoolean("has_completed_onboarding", false)
+
+                        val nextIntent = if (!hasCompletedOnboarding) {
+                            Intent(this@ApiCredentialsActivity, OnboardingActivity::class.java).apply {
+                                putExtra("USER_ID", userId)
+                                putExtra("USERNAME", intent.getStringExtra("USERNAME"))
+                                putExtra("EMAIL", prefs.getString("EMAIL", ""))
+                            }
+                        } else {
+                            Intent(this@ApiCredentialsActivity, HomeActivity::class.java)
+                        }
+
+                        nextIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(nextIntent)
+
                     } else {
                         val err = resp.errorBody()?.string().orEmpty()
                         tvStatus.text = "Error ${resp.code()}: $err"

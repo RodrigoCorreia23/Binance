@@ -1,66 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    <!-- Cabeçalho da tabela -->
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
 
-        <TextView
-                android:layout_width="0dp"
+        <!-- Cabeçalho da tabela -->
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="Ativo"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="Ativo"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Type"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
+                    android:text="Date"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.3"
+                    android:text="Value"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="L/P"
+                    android:gravity="end"
+                    android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Lista de trades -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTrades"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Type"
-                android:gravity="center"
-                android:textStyle="bold" />
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                android:text="Date"
-                android:gravity="center"
-                android:textStyle="bold" />
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.3"
-                android:text="Value"
-                android:gravity="center"
-                android:textStyle="bold" />
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="L/P"
-                android:gravity="end"
-                android:textStyle="bold" />
+                android:paddingHorizontal="8dp"
+                android:scrollbars="vertical" />
     </LinearLayout>
 
-    <!-- Lista de trades -->
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTrades"
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingHorizontal="8dp"
-            android:scrollbars="vertical" />
+            android:layout_height="75dp"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconTint="#002BFF"
+            app:itemTextColor="#002BFF" />
 
-
-
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

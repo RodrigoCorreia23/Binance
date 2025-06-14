@@ -77,17 +77,22 @@ class HomeActivity : AppCompatActivity() {
             .build()
             .create(PublicBinanceApiService::class.java)
 
-        // Recupera o userId salvo
-        val prefs  = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
-        val userId = prefs.getString("USER_ID", "") ?: ""
-        Log.d("HomeActivity", "Loaded from prefs → userId='$userId'")
+        // Recupera o userId guardando no SharedPreferences
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null)
 
-        // Carrega e exibe o saldo
-        if (userId.isNotEmpty()) {
-            loadBalance(userId)
-        } else {
-            Log.e("HomeActivity", "UserId está vazio!")
+        if (userId.isNullOrEmpty()) {
+            Log.e("HomeActivity", "UserId está vazio ou nulo! Redirecionando para login.")
+            Toast.makeText(this, "Sessão expirada. Faça login novamente.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+            return
         }
+
+        Log.d("HomeActivity", "Loaded from prefs → userId='$userId'")
+        loadBalance(userId)
 
         // Popula symbols e inicia gráfico
         lifecycleScope.launch {

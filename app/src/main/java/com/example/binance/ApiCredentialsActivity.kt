@@ -107,7 +107,13 @@ class ApiCredentialsActivity : AppCompatActivity() {
                                 putExtra("EMAIL", prefs.getString("EMAIL", ""))
                             }
                         } else {
-                            Intent(this@ApiCredentialsActivity, HomeActivity::class.java)
+                            Intent(this@ApiCredentialsActivity, OnboardingActivity::class.java).apply {
+                                putExtra("USER_ID", userId)
+                                putExtra("USERNAME", intent.getStringExtra("USERNAME"))
+                                putExtra("EMAIL", prefs.getString("EMAIL", ""))
+                                flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            }
                         }
 
                         nextIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

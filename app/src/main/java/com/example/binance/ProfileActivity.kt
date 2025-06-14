@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -37,6 +38,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var cardHelp: CardView
     private lateinit var cardLanguage: CardView
     private lateinit var cardTutorials: CardView
+    private lateinit var bottomNav: BottomNavigationView
 
     // 3. Launcher para escolher avatar da galeria
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
@@ -65,6 +67,7 @@ class ProfileActivity : AppCompatActivity() {
         cardHelp     = findViewById(R.id.cardHelp)
         cardLanguage = findViewById(R.id.cardLanguage)
         cardTutorials = findViewById(R.id.cardTutorials)
+        bottomNav = findViewById(R.id.bottom_nav)
 
         // Inicializar SharedPreferences
         prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
@@ -106,9 +109,23 @@ class ProfileActivity : AppCompatActivity() {
         cardLanguage.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+        // Configurar clique no CardView de Tutoriais tem de levar os dados do utilizador para depois abrir a HomeActivity
         cardTutorials.setOnClickListener {
-            startActivity(Intent(this, OnboardingActivity::class.java))
+            val username = prefs.getString("USERNAME", null)
+            val email = prefs.getString("EMAIL", null)
+
+            if (!savedUserId.isNullOrBlank() && !username.isNullOrBlank() && !email.isNullOrBlank()) {
+                val intent = Intent(this, OnboardingActivity::class.java).apply {
+                    putExtra("USER_ID", savedUserId)
+                    putExtra("USERNAME", username)
+                    putExtra("EMAIL", email)
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Dados de utilizador incompletos", Toast.LENGTH_SHORT).show()
+            }
         }
+
 
         // Configurar clique em “change” para abrir diálogo de edição
         tvChangePersonalDetails.setOnClickListener {
@@ -146,6 +163,28 @@ class ProfileActivity : AppCompatActivity() {
             prefs.edit().putBoolean("DARK_MODE", isChecked).apply()
         }
 
+        //Navigation Bottom Menu
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this@ProfileActivity, HomeActivity::class.java))
+                    true
+                }
+                R.id.nav_refresh -> {
+                    startActivity(Intent(this@ProfileActivity, TradeHistoryActivity::class.java))
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
+                    true
+                }
+                R.id.nav_settings -> {
+                    startActivity(Intent(this@ProfileActivity, BotSettingsActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
 
     }
 

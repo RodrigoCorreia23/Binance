@@ -36,7 +36,7 @@
                     android:gravity="center_vertical"
                     android:padding="12dp"
                     android:textSize="16sp"
-                    android:textColor="#002BFF"
+                    android:textColor="#3A55D9"
                     android:clickable="true"
                     android:focusable="true" />
         </LinearLayout>
@@ -89,7 +89,7 @@
                     android:gravity="center"
                     android:padding="12dp"
                     android:text="@string/show"
-                    android:textColor="#002BFF"
+                    android:textColor="#3A55D9"
                     android:textSize="16sp"
                     android:clickable="true"
                     android:focusable="true" />
@@ -99,16 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
-        <!-- Texto Forgot Password -->
-
-        <TextView
-                android:id="@+id/tvForgot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/forgot_password"
-                android:textColor="#888888"
-                android:clickable="true"
-                android:focusable="true" />
 
         <View
                 android:layout_width="match_parent"
@@ -120,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="@string/login"
-                android:backgroundTint="#002BFF"
+                android:backgroundTint="#3A55D9"
                 android:layout_marginBottom="24dp"/>
 
         <View

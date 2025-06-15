@@ -205,7 +205,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:text="@string/back"
-            android:backgroundTint="#002BFF"
+            android:backgroundTint="#3A55D9"
             android:textAllCaps="false" />
 
 
@@ -216,7 +216,7 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="@string/next"
-            android:backgroundTint="#002BFF"
+            android:backgroundTint="#3A55D9"
             android:textAllCaps="false" />
 
     </LinearLayout>

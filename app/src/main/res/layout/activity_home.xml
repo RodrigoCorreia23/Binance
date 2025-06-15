@@ -64,14 +64,14 @@
                         android:text="$ 0.00"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:textColor="#002BFF" />
+                        android:textColor="#3A55D9" />
 
                 <Button
                         android:id="@+id/btnAddFunds"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:text="@string/add_funds"
-                        android:backgroundTint="#002BFF" />
+                        android:backgroundTint="#3A55D9" />
             </LinearLayout>
 
             <View
@@ -115,7 +115,7 @@
             android:layout_height="75dp"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="#002BFF"
-            app:itemTextColor="#002BFF"/>
+            app:itemIconTint="#3A55D9"
+            app:itemTextColor="#3A55D9"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

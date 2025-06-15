@@ -166,7 +166,7 @@
             <Button
                     android:id="@+id/btnSaveBotSettings"
                     android:text="@string/save_settings"
-                    android:backgroundTint="#002BFF"
+                    android:backgroundTint="#3A55D9"
                     android:layout_marginTop="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -181,7 +181,7 @@
             android:layout_height="75dp"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="#002BFF"
-            app:itemTextColor="#002BFF" />
+            app:itemIconTint="#3A55D9"
+            app:itemTextColor="#3A55D9" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

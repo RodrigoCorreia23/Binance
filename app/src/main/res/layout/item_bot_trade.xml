@@ -25,7 +25,7 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:gravity="center"
-            android:textColor="#002BFF" />
+            android:textColor="#3A55D9" />
 
     <!-- Coluna 3: Data -->
     <TextView

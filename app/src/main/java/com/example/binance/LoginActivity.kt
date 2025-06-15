@@ -63,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
         tvShow     = findViewById(R.id.tvShow)
         btnLogIn   = findViewById(R.id.btnLogIn)
         tvSignUp   = findViewById(R.id.tvSignUp)
-        tvForgot   = findViewById(R.id.tvForgot)
         tvStatus   = findViewById(R.id.tvStatus)
 
         tvShow.setOnClickListener { togglePasswordVisibility() }
@@ -176,14 +175,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
-
-        // 7) “Esqueci a senha” (ainda não implementado)
-        tvForgot.setOnClickListener {
-            Toast.makeText(this, "Recuperar senha ainda não implementado", Toast.LENGTH_SHORT).show()
-        }
-        tvSignUp.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 

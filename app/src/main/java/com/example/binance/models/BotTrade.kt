@@ -19,7 +19,7 @@ data class BotTrade(
     @SerializedName("fee")
     val fee: BigDecimal?,
 
-    @SerializedName("profit_estimate")
+    @SerializedName("profitEstimate")
     val profitEstimate: BigDecimal?,
 
     val status: String,             // "OPEN" ou "CLOSED"

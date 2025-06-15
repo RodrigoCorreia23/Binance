@@ -54,7 +54,7 @@ class FirebaseService : FirebaseMessagingService() {
         if (userId != null) {
             Log.d("FCM", "Token a enviar para backend (userId: $userId): $token")
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/") // localhost na Android Emulator
+                .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 

@@ -2,6 +2,7 @@ package com.example.binance.adapter
 
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,12 @@ class BotTradeAdapter(private val trades: List<BotTrade>) :
     override fun onBindViewHolder(holder: TradeViewHolder, position: Int) {
         val trade = trades[position]
 
+        Log.d("BotTrade", "Position: $position")
+        Log.d("BotTrade", "Symbol: ${trade.symbol}")
+        Log.d("BotTrade", "Side: ${trade.side}")
+        Log.d("BotTrade", "ProfitEstimate: ${trade.profitEstimate}")
+        Log.d("BotTrade", "ProfitEstimate is null: ${trade.profitEstimate == null}")
+
         // 1. Ativo (par de trading)
         holder.tvSymbol.text = trade.symbol
 
@@ -49,21 +56,34 @@ class BotTradeAdapter(private val trades: List<BotTrade>) :
                 Color.parseColor("#F44336") // Vermelho para venda
         )
 
-        // 3. Data (apenas a parte da data)
+        // 3. Data
         val data = trade.createdAt?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) ?: "-"
         holder.tvDate.text = data
 
-
-        // 4. Preço da ordem
+        // 4. Preço
         val preco = trade.price?.setScale(2, RoundingMode.HALF_UP)?.toPlainString() ?: "-"
         holder.tvPrice.text = preco
 
-        // 5. L/P (lucro ou prejuízo) – só visível em vendas
-        val lucro = trade.profitEstimate ?: BigDecimal.ZERO
-        if (trade.side.lowercase() == "sell") {
+        // 5. L/P - CORREÇÃO: Remover a condição de apenas SELL
+        val lucro = trade.profitEstimate
+
+        if (lucro != null) {
+            // Formatação adequada para valores pequenos
+            val lucroFormatado = when {
+                lucro.abs() < BigDecimal("0.01") -> {
+                    lucro.setScale(8, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
+                }
+                lucro.abs() < BigDecimal("1") -> {
+                    lucro.setScale(4, RoundingMode.HALF_UP).toPlainString()
+                }
+                else -> {
+                    lucro.setScale(2, RoundingMode.HALF_UP).toPlainString()
+                }
+            }
+
             val cor = if (lucro >= BigDecimal.ZERO) "#4CAF50" else "#F44336"
             holder.tvProfit.setTextColor(Color.parseColor(cor))
-            holder.tvProfit.text = "${if (lucro >= BigDecimal.ZERO) "+" else ""}${lucro.setScale(2, RoundingMode.HALF_UP)}"
+            holder.tvProfit.text = "${if (lucro > BigDecimal.ZERO) "+" else ""}${lucroFormatado}Z"
         } else {
             holder.tvProfit.text = "-"
             holder.tvProfit.setTextColor(Color.GRAY)

@@ -90,21 +90,15 @@ class BotSettingsActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    if (this !is HomeActivity) {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                    }
+                    startActivity(Intent(this, HomeActivity::class.java))
                     true
                 }
                 R.id.nav_refresh -> {
-                    if (this !is TradeHistoryActivity) {
-                        startActivity(Intent(this, TradeHistoryActivity::class.java))
-                    }
+                    startActivity(Intent(this, TradeHistoryActivity::class.java))
                     true
                 }
                 R.id.nav_profile -> {
-                    if (this !is ProfileActivity) {
-                        startActivity(Intent(this, ProfileActivity::class.java))
-                    }
+                    startActivity(Intent(this, ProfileActivity::class.java))
                     true
                 }
                 R.id.nav_settings -> {

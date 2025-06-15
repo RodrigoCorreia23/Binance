@@ -29,6 +29,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
 
     compileOptions {
@@ -94,6 +95,7 @@ dependencies {
 
     implementation ("com.stripe:stripe-android:20.19.0")
     implementation ("androidx.cardview:cardview:1.0.0")
+
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
 

@@ -74,7 +74,6 @@
     <string name="newsletter">Gostaria de receber a newsletter e promoções?</string>
     <string name="signup">Criar Conta</string>
     <string name="status_loading">Estado: a carregar...</string>
-    <string name="choose_language">Escolher Idioma</string>
 
 
     <string name="home">Início</string>
@@ -86,7 +85,6 @@
     <string name="title_profile">O Meu Perfil</string>
     <string name="personal_details">Detalhes Pessoais</string>
     <string name="edit_profile">Editar</string>
-    <string name="faq">FAQ</string>
     <string name="help">Ajuda</string>
     <string name="language">Idioma</string>
     <string name="language_available">Idiomas Disponíveis</string>

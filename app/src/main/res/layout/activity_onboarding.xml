@@ -67,7 +67,6 @@
                 android:text="@string/onboarding_blockchain_title"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#1E293B"
                 android:textAlignment="center"
                 android:layout_marginBottom="16dp" />
 
@@ -91,25 +90,11 @@
             android:padding="16dp">
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/bitcoin"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/coins"
                 android:layout_margin="8dp"
-                android:contentDescription="Bitcoin" />
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/eth"
-                android:layout_margin="8dp"
-                android:contentDescription="Ethereum" />
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/solana"
-                android:layout_margin="8dp"
-                android:contentDescription="Solana" />
+                android:contentDescription="Coins" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -117,7 +102,6 @@
                 android:text="@string/onboarding_crypto_title"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#1E293B"
                 android:textAlignment="center"
                 android:layout_marginBottom="16dp" />
 
@@ -153,7 +137,6 @@
                 android:text="@string/onboarding_security_title"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#1E293B"
                 android:textAlignment="center"
                 android:layout_marginBottom="16dp" />
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746666789959",
+    "project_id": "tradinbot-d8d99",
+    "storage_bucket": "tradinbot-d8d99.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746666789959:android:45fda75d8ae9b2277ff562",
+        "android_client_info": {
+          "package_name": "com.example.binance"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCiLLj0rZd1Dtv_fif1hNNSze8d2fNw44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

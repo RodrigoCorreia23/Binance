@@ -2,6 +2,7 @@ package com.example.binance
 
 import android.content.Intent
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.binance.network.PublicBinanceApiService
 import com.example.binance.network.ApiClient
+import com.example.binance.network.FcmTokenRequest
+import com.example.binance.network.UserApiService
 import com.github.mikephil.charting.charts.CandleStickChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.CandleData
@@ -21,6 +24,7 @@ import com.github.mikephil.charting.data.CandleDataSet
 import com.github.mikephil.charting.data.CandleEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,8 +33,12 @@ import okhttp3.Request
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -59,6 +67,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1001)
+        }
 
         acSymbol        = findViewById(R.id.acSymbol)
         tvUsdBalance    = findViewById(R.id.tvUsdBalance)
@@ -152,6 +164,55 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         bottomNav.selectedItemId = R.id.nav_home
+
+        // Enviar token FCM pendente (se existir)
+        // Forçar renovação do token FCM
+        FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener { deleteTask ->
+            if (deleteTask.isSuccessful) {
+                Log.d("FCM", "Token antigo removido com sucesso")
+
+                // Obter novo token
+                FirebaseMessaging.getInstance().token
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val newToken = task.result
+                            Log.d("FCM", "Novo token gerado: $newToken")
+
+                            val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+                            val userId = prefs.getString("USER_ID", null)
+
+                            if (!userId.isNullOrEmpty()) {
+                                // Seu código existente para enviar o token...
+                                val retrofit = Retrofit.Builder()
+                                    .baseUrl("http://10.0.2.2:8080/")
+                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build()
+
+                                val api = retrofit.create(UserApiService::class.java)
+                                val request = FcmTokenRequest(newToken)
+
+                                api.updateFcmToken(userId, request).enqueue(object : Callback<String> {
+                                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                                        if (response.isSuccessful) {
+                                            Log.d("FCM", "NOVO token enviado com sucesso!")
+                                        } else {
+                                            Log.e("FCM", "Erro ao enviar novo token: ${response.code()}")
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<String>, t: Throwable) {
+                                        Log.e("FCM", "Falha ao enviar novo token", t)
+                                    }
+                                })
+                            }
+                        }
+                    }
+            } else {
+                Log.e("FCM", "Erro ao remover token antigo: ${deleteTask.exception}")
+            }
+        }
+
     }
 
     private fun loadBalance(userId: String) {

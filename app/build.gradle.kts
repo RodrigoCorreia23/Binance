@@ -2,8 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
 }
+
+// Plugin to use Firebase services
+apply(plugin = "com.google.gms.google-services")
 
 android {
     namespace = "com.example.binance"
@@ -58,8 +60,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 
     // Gráficos (opcional)
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")

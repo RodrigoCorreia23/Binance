@@ -132,7 +132,7 @@ class ProfileActivity : AppCompatActivity() {
             if (!savedUserId.isNullOrBlank() && !savedAuthToken.isNullOrBlank()) {
                 showEditProfileDialog(savedUserId!!, savedAuthToken!!)
             } else {
-                Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -141,7 +141,7 @@ class ProfileActivity : AppCompatActivity() {
             fetchUserProfile(savedUserId!!, savedAuthToken!!)
         } else {
             Toast.makeText(this,
-                "Erro: usuário não autenticado. Faça login novamente.",
+                "Erro: utilizador não autenticado. Faça login novamente.",
                 Toast.LENGTH_LONG
             ).show()
             startActivity(Intent(this, LoginActivity::class.java))

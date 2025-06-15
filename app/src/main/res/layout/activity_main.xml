@@ -126,21 +126,5 @@
             android:backgroundTint="#002BFF" />
 
         <View android:layout_width="match_parent" android:layout_height="16dp" />
-
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/status_loading"
-            android:textSize="16sp"
-            android:textStyle="italic" />
-
-        <Button
-            android:id="@+id/btnChangeLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_language"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#002BFF"/>
     </LinearLayout>
 </ScrollView>

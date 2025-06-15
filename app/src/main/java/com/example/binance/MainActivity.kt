@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binance.network.RetrofitClient
 import com.example.binance.network.SignUpRequest
-import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,18 +38,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //Apagar o token FCM antigo
-        Thread {
-            FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener {
-                Log.d("FCM", "Token apagado. Novo será gerado automaticamente.")
-            }
-        }.start()
-
-        val btnLang = findViewById<Button>(R.id.btnChangeLanguage)
-        btnLang.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
 
         etName       = findViewById(R.id.etName)
         etEmail      = findViewById(R.id.etEmail)

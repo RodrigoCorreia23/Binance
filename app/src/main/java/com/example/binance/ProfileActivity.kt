@@ -33,9 +33,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tvLabelPersonalDetails: TextView
     private lateinit var tvChangePersonalDetails: TextView
 
-    // 2. CardViews “botões” de FAQ, Help, Language
-    private lateinit var cardFaq: CardView
-    private lateinit var cardHelp: CardView
+    // 2. CardViews “botões” de Language, Tutorial,
+    private lateinit var cardLogout: CardView
     private lateinit var cardLanguage: CardView
     private lateinit var cardTutorials: CardView
     private lateinit var bottomNav: BottomNavigationView
@@ -63,8 +62,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
         // Vincular CardViews
-        cardFaq      = findViewById(R.id.cardFaq)
-        cardHelp     = findViewById(R.id.cardHelp)
+        cardLogout      = findViewById(R.id.cardLogout)
         cardLanguage = findViewById(R.id.cardLanguage)
         cardTutorials = findViewById(R.id.cardTutorials)
         bottomNav = findViewById(R.id.bottom_nav)
@@ -100,12 +98,24 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         // Configurar cliques nos CardViews
-        cardFaq.setOnClickListener {
-            Toast.makeText(this, "Abrir FAQ (implementar depois)", Toast.LENGTH_SHORT).show()
+        cardLogout.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Sair da conta")
+                .setMessage("Tem a certeza que pretende terminar a sessão?")
+                .setPositiveButton("Sim") { _, _ ->
+                    // Limpar SharedPreferences
+                    prefs.edit().clear().apply()
+
+                    // Voltar para LoginActivity e limpar a stack de atividades
+                    val intent = Intent(this, LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
+                    startActivity(intent)
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
-        cardHelp.setOnClickListener {
-            Toast.makeText(this, "Abrir Help (implementar depois)", Toast.LENGTH_SHORT).show()
-        }
+
         cardLanguage.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }

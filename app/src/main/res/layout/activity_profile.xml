@@ -116,9 +116,9 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- 4.1. CardView "Faq" -->
+            <!-- 4.1. CardView "Logout" -->
             <androidx.cardview.widget.CardView
-                    android:id="@+id/cardFaq"
+                    android:id="@+id/cardLogout"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_marginTop="24dp"
@@ -138,16 +138,16 @@
                         android:paddingEnd="16dp">
 
                     <TextView
-                            android:id="@+id/tvFaq"
+                            android:id="@+id/tvLogout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/faq"
+                            android:text="Logout"
                             android:textSize="16sp"
                             android:layout_centerVertical="true"
                             android:layout_alignParentStart="true"/>
 
                     <ImageView
-                            android:id="@+id/ivFaqArrow"
+                            android:id="@+id/ivLogoutArrow"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_arrow_right"
@@ -157,48 +157,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- 4.2. CardView "Help" -->
-            <androidx.cardview.widget.CardView
-                    android:id="@+id/cardHelp"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="12dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:layout_constraintTop_toBottomOf="@id/cardFaq"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground">
-
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                    <TextView
-                            android:id="@+id/tvHelp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/help"
-                            android:textSize="16sp"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentStart="true"/>
-
-                    <ImageView
-                            android:id="@+id/ivHelpArrow"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_arrow_right"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"
-                            android:contentDescription="Ícone de seta"/>
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 4.3. CardView "Language" -->
+            <!-- 4.2. CardView "Language" -->
             <androidx.cardview.widget.CardView
                     android:id="@+id/cardLanguage"
                     android:layout_width="0dp"
@@ -206,7 +165,7 @@
                     android:layout_marginTop="12dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="2dp"
-                    app:layout_constraintTop_toBottomOf="@id/cardHelp"
+                    app:layout_constraintTop_toBottomOf="@id/cardLogout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:clickable="true"
@@ -239,7 +198,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- 4.4. CardView "Theme" -->
+            <!-- 4.3. CardView "Theme" -->
             <androidx.cardview.widget.CardView
                     android:id="@+id/cardTheme"
                     android:layout_width="0dp"
@@ -279,7 +238,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- 4.5. CardView "Tutoriais" -->
+            <!-- 4.4. CardView "Tutoriais" -->
             <androidx.cardview.widget.CardView
                     android:id="@+id/cardTutorials"
                     android:layout_width="0dp"

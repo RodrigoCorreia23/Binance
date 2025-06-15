@@ -3,8 +3,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@android:color/white">
+        android:padding="10dp">
 
     <!-- Coluna 1: Ativo -->
     <TextView
@@ -14,8 +13,7 @@
             android:layout_weight="1"
             android:text="BTCUSDT"
             android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="#000000" />
+            android:textSize="14sp" />
 
     <!-- Coluna 2: Tipo -->
     <TextView
@@ -27,7 +25,7 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:gravity="center"
-            android:textColor="#2196F3" />
+            android:textColor="#002BFF" />
 
     <!-- Coluna 3: Data -->
     <TextView
@@ -37,8 +35,7 @@
             android:layout_weight="1"
             android:text="11/06/2025"
             android:textSize="13sp"
-            android:gravity="center"
-            android:textColor="#000000" />
+            android:gravity="center" />
 
     <!-- Coluna 4: Valor -->
     <TextView
@@ -48,8 +45,7 @@
             android:layout_weight="1"
             android:text="92.85"
             android:textSize="13sp"
-            android:gravity="center"
-            android:textColor="#000000" />
+            android:gravity="center"/>
 
     <!-- Coluna 5: L/P -->
     <TextView
